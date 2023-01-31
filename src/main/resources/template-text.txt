@@ -1,0 +1,2 @@
+text with #{tag1} and #{tag2}. Hi #{tag1}!
+tag1:user tag2:cat

@@ -28,6 +28,7 @@ class MainTest
 
     @Test
     void shouldWorkInConsoleModeWhenNoArgsProvided() {
+        // GIVEN
         String expectedText = "Text with value%n";
         InputStream stdin = System.in;
         System.setIn(new ByteArrayInputStream("Text with #{tag}\ntag:value".getBytes(UTF_8)));
@@ -36,11 +37,12 @@ class MainTest
         PrintStream stdout = System.out;
         System.setOut(ps);
 
+        // WHEN
         Main.startSystem(new String[0]);
 
+        // THEN
         System.setIn(stdin);
         System.setOut(stdout);
-
         String actualText = byteArrayOutputStream.toString(UTF_8);
         assertEquals(actualText, format(expectedText));
     }
@@ -48,6 +50,7 @@ class MainTest
     @Test
     @Disabled
     void shouldWorkInFileModeWhenBothFilesAreProvided(@TempDir Path tempDir) throws IOException {
+        // GIVEN
         Path inputFile = tempDir.resolve("inputFile.txt");
         Path outputFile = tempDir.resolve("outputFile.txt");
         String templateText = "Text with #{tag1} #{tag2}\ntag1:value1 tag2:value2";
@@ -55,16 +58,17 @@ class MainTest
         String expectedText = "Text with value1 value2%n";
         String[] args = {FILE_INPUT_PREFIX_FLAG + inputFile, FILE_OUTPUT_PREFIX_FLAG + outputFile};
 
+        // WHEN
         Main.startSystem(args);
 
+        // THEN
         String actualText = Files.readString(outputFile);
-
         assertEquals(actualText, format(expectedText));
     }
 
     @Test
     void shouldSupportLatin1Charset() {
-
+        // GIVEN
         String templateText = new String("Text with #{tag}\ntag:value".getBytes(UTF_8), ISO_8859_1);
         String expectedText = new String("Text with value%n".getBytes(UTF_8), ISO_8859_1);
         InputStream stdin = System.in;
@@ -74,24 +78,28 @@ class MainTest
         PrintStream stdout = System.out;
         System.setOut(ps);
 
+        // WHEN
         Main.startSystem(new String[0]);
 
+        // THEN
         System.setIn(stdin);
         System.setOut(stdout);
-
         String actualText = byteArrayOutputStream.toString(ISO_8859_1);
         assertEquals(actualText, format(expectedText));
     }
 
     @Test
     void shouldThrowExceptionWhenOnlyOneOfFileFlagsProvided() {
+        // GIVEN
         String expectedExceptionMessage = "Either input or output file parameter is not provided";
         String[] args = { FILE_OUTPUT_PREFIX_FLAG + "test.txt"};
 
+        // WHEN
         IllegalArgumentException actualException = assertThrows(IllegalArgumentException.class,
                 () -> Main.startSystem(args),
                 "Exception is expected to be thrown when one of file parameters is not provided");
 
+        // THEN
         assertEquals(expectedExceptionMessage, actualException.getMessage());
     }
 }

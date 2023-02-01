@@ -33,6 +33,7 @@ class MessengerIntegrationTest
     @Test
     @Tag("IntegrationTest")
     void shouldSendMessage() {
+        // GIVEN
         Template template = new Template("Text with #{tag}");
         String addresses = "user@mail.com";
         client.setAddresses(addresses);
@@ -40,10 +41,11 @@ class MessengerIntegrationTest
         doReturn(placeholders).when(server).receivePlaceholders();
         doReturn(template).when(server).receiveTemplate();
 
+        // WHEN
         messenger.sendMessage(client);
 
+        // THEN
         verify(client).setPlaceholders(placeholders);
         verify(server).send(addresses, "Text with value");
-
     }
 }

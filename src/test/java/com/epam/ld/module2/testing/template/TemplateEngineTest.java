@@ -21,18 +21,22 @@ class TemplateEngineTest {
   @ParameterizedTest
   @CsvFileSource(resources = "/test-tag.csv", numLinesToSkip = 1)
   void shouldReplaceTagWithValue(String templateText, String tag, String tagValue, String expectedText) {
+    // GIVEN
     Template template = new Template(templateText);
     Client client = new Client();
     Map<String, String> placeholders = Map.of(tag, tagValue);
     client.setPlaceholders(placeholders);
 
+    // WHEN
     String actualText = templateEngine.generateMessage(template, client);
 
+    // THEN
     assertEquals(expectedText, actualText);
   }
 
   @Test
   void shouldReplaceSeveralTagsWithCorrespondingValues() {
+    // GIVEN
     String templateText = TestUtils.getResourceAsString("test-several-tags-template.txt");
     String expectedText = TestUtils.getResourceAsString("test-several-tags-text.txt");
     Template template = new Template(templateText);
@@ -46,13 +50,16 @@ class TemplateEngineTest {
         );
     client.setPlaceholders(placeholders);
 
+    // WHEN
     String actualText = templateEngine.generateMessage(template, client);
 
+    // THEN
     assertEquals(expectedText, actualText);
   }
 
   @Test
   void shouldReplaceTagsWithValuesStartedWithHashtagAndBraces() {
+    // GIVEN
     Template template = new Template("Text with #{tag1} and #{tag2}");
     String expectedText = "Text with #{value1} and #{value2}";
     Client client = new Client();
@@ -62,14 +69,16 @@ class TemplateEngineTest {
     );
     client.setPlaceholders(placeholders);
 
+    // WHEN
     String actualText = templateEngine.generateMessage(template, client);
 
+    // THEN
     assertEquals(expectedText, actualText);
   }
 
   @TestFactory
   Stream<DynamicTest> shouldThrowExceptionWhenValueIsNotProvided() {
-
+    // GIVEN
     Client client = new Client();
     Map<String, String> placeholders = Map.of(
             "tag1", "#{value1}"
@@ -83,16 +92,19 @@ class TemplateEngineTest {
             .map( Template::new)
             .map(template -> DynamicTest.dynamicTest("Generating text: " + template.getText(),
                     () -> {
+                      // WHEN
                       IllegalArgumentException actualException = assertThrows(IllegalArgumentException.class,
                               () -> templateEngine.generateMessage(template, client),
                               "Exception is expected to be thrown when placeholder value is not provided");
 
+                      // THEN
                       assertEquals(expectedExceptionMessage, actualException.getMessage());
                     }));
   }
 
   @Test
   void shouldIgnoreValuesForPlaceholdersWhichAreNotInTemplate() {
+    // GIVEN
     Template template = new Template("Text with #{tag1} and #{tag2}");
     Client client = new Client();
     Map<String, String> placeholders = Map.of(
@@ -104,8 +116,10 @@ class TemplateEngineTest {
     client.setPlaceholders(placeholders);
     String expectedText = "Text with value1 and value2";
 
+    // WHEN
     String actualText = templateEngine.generateMessage(template, client);
 
+    // THEN
     assertEquals(expectedText, actualText);
   }
 }

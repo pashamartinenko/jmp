@@ -1,4 +1,4 @@
-package com.epam.ld.module2.testing;
+package com.epam.ld.module2;
 
 
 import static java.lang.String.format;

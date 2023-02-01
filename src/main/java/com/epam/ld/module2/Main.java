@@ -1,8 +1,12 @@
-package com.epam.ld.module2.testing;
+package com.epam.ld.module2;
 
 import static com.epam.ld.module2.testing.Mode.CONSOLE;
 import static com.epam.ld.module2.testing.Mode.FILE;
 
+import com.epam.ld.module2.testing.Client;
+import com.epam.ld.module2.testing.MailServer;
+import com.epam.ld.module2.testing.Messenger;
+import com.epam.ld.module2.testing.Mode;
 import com.epam.ld.module2.testing.template.TemplateEngine;
 
 import java.io.File;

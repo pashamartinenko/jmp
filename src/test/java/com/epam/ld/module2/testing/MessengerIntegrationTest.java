@@ -26,7 +26,6 @@ class MessengerIntegrationTest
     @Spy
     private Client client;
 
-    @Spy
     @InjectMocks
     private Messenger messenger;
 

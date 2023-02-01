@@ -13,6 +13,9 @@ import static java.lang.String.format;
  * The type Template engine.
  */
 public class TemplateEngine {
+
+    private static final String PLACEHOLDER_REGEX = "#\\{[^#{}]+}";
+
     /**
      * Generate message string.
      *
@@ -38,7 +41,7 @@ public class TemplateEngine {
     private Set<String> findTemplatePlaceholders(Template template) {
         Set<String> placeholders = new HashSet<>();
         String templateText = template.getText();
-        Pattern pattern = Pattern.compile("#\\{[^#{}]+}");
+        Pattern pattern = Pattern.compile(PLACEHOLDER_REGEX);
         Matcher matcher = pattern.matcher(templateText);
         while (matcher.find()) {
             placeholders.add(templateText.substring(matcher.start() + 2, matcher.end() - 1));

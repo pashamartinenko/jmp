@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 public class MailServer
 {
 
+    private static final String PLACEHOLDERS_SEPARATOR = " ";
+    private static final String PLACEHOLDER_VALUE_SEPARATOR = ":";
+
     private final Scanner scanner;
     private final PrintStream ps;
 
@@ -33,10 +36,10 @@ public class MailServer
      */
     public Map<String, String> receivePlaceholders()
     {
-        return Arrays.stream(scanner.nextLine().split(" "))
-                .map(e -> e.split(":"))
-                .filter(e -> e.length == 2)
-                .collect(Collectors.toMap(e -> e[0], e-> e[1]));
+        return Arrays.stream(scanner.nextLine().split(PLACEHOLDERS_SEPARATOR))
+                .map(placeholder -> placeholder.split(PLACEHOLDER_VALUE_SEPARATOR))
+                .filter(placeholder -> placeholder.length == 2)
+                .collect(Collectors.toMap(placeholder -> placeholder[0], placeholder-> placeholder[1]));
     }
 
     /**

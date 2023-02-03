@@ -8,8 +8,8 @@ import com.epam.ld.module2.testing.template.TemplateEngine;
  * The type Messenger.
  */
 public class Messenger {
-    private MailServer mailServer;
-    private TemplateEngine templateEngine;
+    private final MailServer mailServer;
+    private final TemplateEngine templateEngine;
 
     /**
      * Instantiates a new Messenger.
@@ -27,9 +27,10 @@ public class Messenger {
      * Send message.
      *
      * @param client   the client
-     * @param template the template
      */
-    public void sendMessage(Client client, Template template) {
+    public void sendMessage(Client client) {
+        Template template = mailServer.receiveTemplate();
+        client.setPlaceholders(mailServer.receivePlaceholders());
         String messageContent =
             templateEngine.generateMessage(template, client);
         mailServer.send(client.getAddresses(), messageContent);

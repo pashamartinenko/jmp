@@ -1,0 +1,3 @@
+templateText,tag,tagValue,expectedText
+Hello #{tag},tag,world,Hello world
+Hi! My name is #{name},name,Pavel,Hi! My name is Pavel

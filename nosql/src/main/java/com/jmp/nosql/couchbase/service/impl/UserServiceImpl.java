@@ -4,19 +4,15 @@ import com.jmp.nosql.couchbase.model.Sport;
 import com.jmp.nosql.couchbase.model.User;
 import com.jmp.nosql.couchbase.repository.UserRepository;
 import com.jmp.nosql.couchbase.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService
 {
     private final UserRepository userRepository;
-
-    public UserServiceImpl(UserRepository userRepository)
-    {
-        this.userRepository = userRepository;
-    }
 
     public User findById(String id)
     {

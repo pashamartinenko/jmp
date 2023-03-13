@@ -2,7 +2,6 @@ package com.jmp.nosql.couchbase.service;
 
 import com.jmp.nosql.couchbase.model.Sport;
 import com.jmp.nosql.couchbase.model.User;
-
 import java.util.List;
 
 public interface UserService

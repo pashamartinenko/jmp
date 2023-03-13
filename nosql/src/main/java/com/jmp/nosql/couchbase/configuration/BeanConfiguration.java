@@ -11,9 +11,9 @@ public class BeanConfiguration
 {
 
     @Bean
-    public Cluster cluster(CouchbaseConfiguration configuration) {
+    public Cluster cluster(CouchbaseProperties couchbaseProperties) {
         return Cluster.connect(
-                configuration.getConnectionString(),
-                clusterOptions(configuration.getUserName(), configuration.getPassword()));
+                couchbaseProperties.getConnectionString(),
+                clusterOptions(couchbaseProperties.getUserName(), couchbaseProperties.getPassword()));
     }
 }

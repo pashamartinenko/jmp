@@ -1,0 +1,6 @@
+couchbase:
+    image: couchbase:enterprise-7.1.3
+    container_name: couchbase
+    ports:
+      - "8091-8096:8091-8096"
+      - "11210-11211:11210-11211"

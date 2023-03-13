@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "2bdaaf0b-84d1-4eb8-a2f7-b021ef5e4352",
+		"name": "couchbase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/9e9a5147-8ebb-4344-a55a-b845aa6e2697",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"9e9a5147-8ebb-4344-a55a-b845aa6e2697"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/email/12345678@epam.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"email",
+						"12345678@epam.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users by sporName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/sport/Volleyball",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"sport",
+						"Volleyball"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/search/user?q=Volleyball",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"search",
+						"user"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Volleyball"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"id\": \"33c2112a-edf2-4074-8720-91f71cbf292b\",\r\n   \"email\": \"abcd@gmail.com\",\r\n   \"fullName\": \"Carla\",\r\n   \"birthDate\": \"1981-02-03\",\r\n   \"gender\": \"FEMALE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update sport",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"id\": \"092965b-8065-23ab-83c9-ca51ecffe58b\",\r\n   \"sportName\": \"Football\",\r\n   \"sportProficiency\": \"Elementary\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/1111111-c88b-4c96-939e-7972226afb9b/sport",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"1111111-c88b-4c96-939e-7972226afb9b",
+						"sport"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

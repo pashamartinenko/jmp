@@ -1,0 +1,6 @@
+-- index to get users by email
+create index users_email on users._default._default(email);
+
+-- index to get users by sportName
+create index users_sport_sportName on users._default._default(sport.sportName);
+

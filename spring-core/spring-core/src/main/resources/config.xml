@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
@@ -11,23 +12,12 @@
 
     <util:map id="storage" map-class="java.util.HashMap"/>
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
-    <bean id="storageClass" class="org.jmp.spring.core.storage.Storage" init-method="init">
-        <property name="filePath" value="${storage.path}"/>
-        <property name="objectMapper" ref="objectMapper"/>
-        <property name="storageMap" ref="storage"/>
-    </bean>
+    <bean id="storageClass" class="org.jmp.spring.core.storage.Storage" init-method="init" p:filePath="${storage.path}" p:objectMapper-ref="objectMapper" p:storageMap-ref="storage"/>
 
-    <bean id="userDao" class="org.jmp.spring.core.dao.impl.UserDaoImpl">
-        <property name="storage" ref="storageClass"/>
-    </bean>
-    <bean id="eventDao" class="org.jmp.spring.core.dao.impl.EventDaoImpl">
-        <property name="storage" ref="storageClass"/>
-    </bean>
-    <bean id="ticketDao" class="org.jmp.spring.core.dao.impl.TicketDaoImpl">
-        <property name="storage" ref="storageClass"/>
-        <property name="userDao" ref="userDao"/>
-        <property name="eventDao" ref="eventDao"/>
-    </bean>
+    <bean id="userDao" class="org.jmp.spring.core.dao.impl.UserDaoImpl" p:storage-ref="storageClass"/>
+    <bean id="eventDao" class="org.jmp.spring.core.dao.impl.EventDaoImpl" p:storage-ref="storageClass"/>
+    <bean id="ticketDao" class="org.jmp.spring.core.dao.impl.TicketDaoImpl" p:storage-ref="storageClass" p:userDao-ref="userDao" p:eventDao-ref="eventDao"/>
+
     <bean id="userService" class="org.jmp.spring.core.service.impl.UserServiceImpl" autowire="constructor"/>
     <bean id="eventService" class="org.jmp.spring.core.service.impl.EventServiceImpl" autowire="byName"/>
     <bean id="ticketService" class="org.jmp.spring.core.service.impl.TicketServiceImpl" autowire="byType"/>

@@ -11,6 +11,6 @@ public class Application
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("config.xml");
         BookingFacade bookingFacade = applicationContext.getBean(BookingFacade.class);
         bookingFacade.getEventById(123L);
-        bookingFacade.getEventsByTitle("null", 1, 1);
+        bookingFacade.getEventsByTitle("Title", 1, 1);
     }
 }

@@ -5,9 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.core.dao.EventDao;
 import org.jmp.spring.core.model.Event;
 import org.jmp.spring.core.service.EventService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +12,6 @@ import java.util.List;
 @Setter
 public class EventServiceImpl implements EventService
 {
-    private static Logger logger = LoggerFactory.getLogger(EventServiceImpl.class);
     private EventDao eventDao;
 
     public Event getEventById(long eventId) {

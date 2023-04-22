@@ -27,6 +27,12 @@ public class Storage
     @Getter
     private Map<String, Object> storageMap;
 
+    private static final Map<String, Class<?>> PARSING_MAP = Map.of(
+            USER_PREFIX, UserImpl.class,
+            EVENT_PREFIX, EventImpl.class,
+            TICKET_PREFIX, TicketImpl.class
+    );
+
 
     public void init() throws IOException
     {
@@ -41,13 +47,10 @@ public class Storage
 
     private Object parseModel(String key, JsonNode node) {
         Object modelObject;
-        Class<?> modelClass = null;
-        if(key.startsWith(USER_PREFIX)) {
-            modelClass = UserImpl.class;
-        } else if (key.startsWith(EVENT_PREFIX)) {
-            modelClass = EventImpl.class;
-        } else if (key.startsWith(TICKET_PREFIX)) {
-            modelClass = TicketImpl.class;
+        String keyPrefix = String.format("%s:", key.split(":")[0]);
+        Class<?> modelClass = PARSING_MAP.get(keyPrefix);
+        if (modelClass == null) {
+            throw new IllegalStateException("Unknown Entity type. Check provided json");
         }
         try
         {
@@ -55,7 +58,7 @@ public class Storage
         }
         catch (JsonProcessingException e)
         {
-            throw new RuntimeException("Error parsing json: " + e.getMessage());
+            throw new IllegalStateException("Error parsing json: " + e.getMessage());
         }
 
         return modelObject;

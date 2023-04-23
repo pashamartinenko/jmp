@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Random;
 
 @Setter
-public class UserDaoImpl implements UserDao
+public class UserDaoImpl
 {
     public static final String USER_PREFIX = "user:";
 

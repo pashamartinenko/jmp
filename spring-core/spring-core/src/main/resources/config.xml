@@ -1,29 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
     <context:property-placeholder location="classpath:application.properties"/>
+
+    <!-- persistence config -->
+    <jpa:repositories base-package="org.jmp.spring.core.dao"/>
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="org.jmp.spring.core.model.impl" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${db.driverClassName}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+    </bean>
+
 
     <util:map id="storage" map-class="java.util.HashMap"/>
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
     <bean id="storageClass" class="org.jmp.spring.core.storage.Storage" init-method="init" p:filePath="${storage.path}" p:objectMapper-ref="objectMapper" p:storageMap-ref="storage"/>
-
-    <bean id="userDao" class="org.jmp.spring.core.dao.impl.UserDaoImpl" p:storage-ref="storageClass"/>
     <bean id="eventDao" class="org.jmp.spring.core.dao.impl.EventDaoImpl" p:storage-ref="storageClass"/>
-    <bean id="ticketDao" class="org.jmp.spring.core.dao.impl.TicketDaoImpl" p:storage-ref="storageClass" p:userDao-ref="userDao" p:eventDao-ref="eventDao"/>
+    <!--<bean id="ticketDao" class="org.jmp.spring.core.dao.impl.TicketDaoImpl" p:storage-ref="storageClass" p:userDao-ref="userDao" p:eventDao-ref="eventDao"/>-->
 
     <bean id="userService" class="org.jmp.spring.core.service.impl.UserServiceImpl" autowire="constructor"/>
     <bean id="eventService" class="org.jmp.spring.core.service.impl.EventServiceImpl" autowire="byName"/>
-    <bean id="ticketService" class="org.jmp.spring.core.service.impl.TicketServiceImpl" autowire="byType"/>
-    <bean id="bookingFacade" class="org.jmp.spring.core.facade.impl.BookingFacadeImpl">
+    <!--<bean id="ticketService" class="org.jmp.spring.core.service.impl.TicketServiceImpl" autowire="byType"/>-->
+<!--    <bean id="bookingFacade" class="org.jmp.spring.core.facade.impl.BookingFacadeImpl">
         <constructor-arg type="org.jmp.spring.core.service.UserService" ref="userService"/>
         <constructor-arg type="org.jmp.spring.core.service.EventService" ref="eventService"/>
         <constructor-arg type="org.jmp.spring.core.service.TicketService" ref="ticketService"/>
-    </bean>
+    </bean>-->
 </beans>

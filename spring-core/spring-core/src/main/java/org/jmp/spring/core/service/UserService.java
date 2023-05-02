@@ -1,6 +1,8 @@
 package org.jmp.spring.core.service;
 
 import org.jmp.spring.core.model.User;
+import org.jmp.spring.core.model.impl.UserImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -8,17 +10,19 @@ public interface UserService
 {
     /**
      * Gets user by its id.
+     *
      * @return User.
      */
-    User getUserById(long userId);
+    UserImpl getUserById(long userId);
 
-    /**
+/**
      * Gets user by its email. Email is strictly matched.
      * @return User.
      */
+
     User getUserByEmail(String email);
 
-    /**
+/**
      * Get list of users by matching name. Name is matched using 'contains' approach.
      * In case nothing was found, empty list is returned.
      * @param name Users name or it's part.
@@ -26,21 +30,22 @@ public interface UserService
      * @param pageNum Pagination param. Number of the page to return. Starts from 1.
      * @return List of users.
      */
-    List<User> getUsersByName(String name, int pageSize, int pageNum);
+
+    List<? extends User> getUsersByName(String name, int pageSize, int pageNum);
 
     /**
      * Creates new user. User id should be auto-generated.
      * @param user User data.
      * @return Created User object.
      */
-    User createUser(User user);
+    User createUser(UserImpl user);
 
     /**
      * Updates user using given data.
      * @param user User data for update. Should have id set.
      * @return Updated User object.
      */
-    User updateUser(User user);
+    User updateUser(UserImpl user);
 
     /**
      * Deletes user by its id.
@@ -48,4 +53,6 @@ public interface UserService
      * @return Flag that shows whether user has been deleted.
      */
     boolean deleteUser(long userId);
+
+    UserImpl findByIdAndNameAndEmail(Long id, String name, String email);
 }

@@ -1,3 +1,4 @@
+/*
 package org.jmp.spring.core.facade.impl;
 
 import lombok.RequiredArgsConstructor;
@@ -115,3 +116,4 @@ public class BookingFacadeImpl implements BookingFacade
         return ticketService.cancelTicket(ticketId);
     }
 }
+*/

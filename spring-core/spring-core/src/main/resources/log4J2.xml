@@ -9,5 +9,6 @@
         <Root level="INFO">
             <AppenderRef ref="ConsoleAppender"/>
         </Root>
+        <Logger name="org.hibernate.SQL" level="trace"/>
     </Loggers>
 </Configuration>

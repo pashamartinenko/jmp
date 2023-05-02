@@ -1,8 +1,8 @@
 package org.jmp.spring.core.storage;
 
-import static org.jmp.spring.core.dao.impl.EventDaoImpl.EVENT_PREFIX;
-import static org.jmp.spring.core.dao.impl.TicketDaoImpl.TICKET_PREFIX;
-import static org.jmp.spring.core.dao.impl.UserDaoImpl.USER_PREFIX;
+import static org.jmp.spring.core.dao.impl.EventDaoImplOld.EVENT_PREFIX;
+import static org.jmp.spring.core.dao.impl.TicketDaoImplOld.TICKET_PREFIX;
+import static org.jmp.spring.core.dao.impl.UserDaoOldButGold.USER_PREFIX;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

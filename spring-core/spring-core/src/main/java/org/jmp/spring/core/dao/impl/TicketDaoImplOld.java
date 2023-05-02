@@ -5,7 +5,6 @@ import static java.util.Comparator.comparing;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.core.dao.EventDao;
-import org.jmp.spring.core.dao.TicketDao;
 import org.jmp.spring.core.dao.UserDao;
 import org.jmp.spring.core.model.Event;
 import org.jmp.spring.core.model.Ticket;
@@ -19,11 +18,11 @@ import java.util.Random;
 
 @Slf4j
 @Setter
-public class TicketDaoImpl implements TicketDao
+public class TicketDaoImplOld
 {
     public static final String TICKET_PREFIX = "ticket:";
 
-    private Storage storage;
+/*    private Storage storage;
     private EventDao eventDao;
     private UserDao userDao;
 
@@ -46,11 +45,11 @@ public class TicketDaoImpl implements TicketDao
         log.info("Ticket has been created {}", ticket);
 
         return ticket;
-    }
-    public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) {
+    }*/
+/*    public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) {
         return getAllBookedTickets().stream()
                 .filter(ticket -> user.getId() == ticket.getUserId())
-                .sorted(comparing(ticket -> eventDao.getEventById(ticket.getEventId()).getDate(), Comparator.reverseOrder()))
+                //.sorted(comparing(ticket -> eventDao.getEventById(ticket.getEventId()).getDate(), Comparator.reverseOrder()))
                 .skip((long) pageSize * (pageNum - 1))
                 .limit(pageSize)
                 .toList();
@@ -59,7 +58,7 @@ public class TicketDaoImpl implements TicketDao
     public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
         return getAllBookedTickets().stream()
                 .filter(ticket -> ticket.getEventId() == event.getId())
-                .sorted(comparing(ticket -> userDao.getUserById(ticket.getUserId()).getEmail()))
+                //.sorted(comparing(ticket -> userDao.getUserById(ticket.getUserId()).getEmail()))
                 .skip((long) pageSize * (pageNum - 1))
                 .limit(pageSize)
                 .toList();
@@ -80,5 +79,5 @@ public class TicketDaoImpl implements TicketDao
                 .filter(entry -> entry.getKey().startsWith(TICKET_PREFIX))
                 .map(entry -> (Ticket) entry.getValue())
                 .toList();
-    }
+    }*/
 }

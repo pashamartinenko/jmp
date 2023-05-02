@@ -1,7 +1,7 @@
 package org.jmp.spring.core.service;
 
 import org.jmp.spring.core.model.Event;
-
+import org.jmp.spring.core.model.impl.EventImpl;
 import java.util.Date;
 import java.util.List;
 
@@ -12,13 +12,14 @@ public interface EventService
      * @param event Event data.
      * @return Created Event object.
      */
-     Event createEvent(Event event);
+     Event createEvent(EventImpl event);
 
     /**
      * Gets event by its id.
+     *
      * @return Event.
      */
-     Event getEventById(long eventId);
+     EventImpl getEventById(long eventId);
 
     /**
      * Get list of events by matching title. Title is matched using 'contains' approach.
@@ -28,7 +29,7 @@ public interface EventService
      * @param pageNum Pagination param. Number of the page to return. Starts from 1.
      * @return List of events.
      */
-     List<Event> getEventsByTitle(String title, int pageSize, int pageNum);
+    List<? extends Event> getEventsByTitle(String title, int pageSize, int pageNum);
 
     /**
      * Get list of events for specified day.
@@ -38,7 +39,7 @@ public interface EventService
      * @param pageNum Pagination param. Number of the page to return. Starts from 1.
      * @return List of events.
      */
-     List<Event> getEventsForDay(Date day, int pageSize, int pageNum);
+    List<? extends Event> getEventsForDay(Date day, int pageSize, int pageNum);
 
     /**
      * Updates event using given data.
@@ -53,4 +54,6 @@ public interface EventService
      * @return Flag that shows whether event has been deleted.
      */
     boolean deleteEvent(long eventId);
+
+    EventImpl findByIdAndTitleAndDate(Long id, String title, Date date);
 }

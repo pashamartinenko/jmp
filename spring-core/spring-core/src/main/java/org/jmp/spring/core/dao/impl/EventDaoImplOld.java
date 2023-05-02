@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Random;
 
 @Setter
-public class EventDaoImpl implements EventDao
+public class EventDaoImplOld
 {
     public static final String EVENT_PREFIX = "event:";
     private Storage storage;

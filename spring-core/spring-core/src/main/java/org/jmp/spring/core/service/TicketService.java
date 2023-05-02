@@ -3,6 +3,8 @@ package org.jmp.spring.core.service;
 import org.jmp.spring.core.model.Event;
 import org.jmp.spring.core.model.Ticket;
 import org.jmp.spring.core.model.User;
+import org.jmp.spring.core.model.impl.TicketImpl;
+import org.jmp.spring.core.model.impl.UserImpl;
 
 import java.util.List;
 
@@ -26,7 +28,7 @@ public interface TicketService
      * @param pageNum Pagination param. Number of the page to return. Starts from 1.
      * @return List of Ticket objects.
      */
-    List<Ticket> getBookedTickets(User user, int pageSize, int pageNum);
+    List<TicketImpl> getBookedTickets(UserImpl user, int pageSize, int pageNum);
 
     /**
      * Get all booked tickets for specified event. Tickets should be sorted in by user email in ascending order.
@@ -35,7 +37,7 @@ public interface TicketService
      * @param pageNum Pagination param. Number of the page to return. Starts from 1.
      * @return List of Ticket objects.
      */
-    List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum);
+    List<TicketImpl> getBookedTickets(Event event, int pageSize, int pageNum);
 
     /**
      * Cancel ticket with a specified id.

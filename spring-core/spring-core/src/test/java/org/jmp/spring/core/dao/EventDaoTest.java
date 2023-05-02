@@ -1,7 +1,7 @@
 package org.jmp.spring.core.dao;
 
 
-import org.jmp.spring.core.dao.impl.EventDaoImpl;
+import org.jmp.spring.core.dao.impl.EventDaoImplOld;
 import org.jmp.spring.core.model.Event;
 import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.storage.Storage;
@@ -14,7 +14,7 @@ import java.util.Map;
 class EventDaoTest
 {
 
-    private static final EventDaoImpl eventDao = new EventDaoImpl();
+    private static final EventDaoImplOld eventDao = new EventDaoImplOld();
 
     @Test
     void getEventById_IdExists_EventIsReturned() {

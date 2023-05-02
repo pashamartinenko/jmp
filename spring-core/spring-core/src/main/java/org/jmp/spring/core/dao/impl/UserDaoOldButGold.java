@@ -1,7 +1,6 @@
 package org.jmp.spring.core.dao.impl;
 
 import lombok.Setter;
-import org.jmp.spring.core.dao.UserDao;
 import org.jmp.spring.core.model.User;
 import org.jmp.spring.core.storage.Storage;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.Objects;
 import java.util.Random;
 
 @Setter
-public class UserDaoImpl
+public class UserDaoOldButGold
 {
     public static final String USER_PREFIX = "user:";
 

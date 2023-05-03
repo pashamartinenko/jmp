@@ -30,10 +30,6 @@ public class Application
     public static void main(String[] args)
     {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("config.xml");
-        /*BookingFacade bookingFacade = applicationContext.getBean(BookingFacade.class);*/
-/*        bookingFacade.getEventById(123L);
-        bookingFacade.getEventsByTitle("Title", 1, 1);
-        bookingFacade.createUser(new UserImpl("Pavel", "pavel@mail.com"));*/
 
         Random random = new Random();
         long rand = random.nextInt();
@@ -66,7 +62,7 @@ public class Application
 *//*        boolean b = eventService.deleteEvent(52L);
         System.out.println(b);*/
 
-        TicketService ticketService = applicationContext.getBean(TicketService.class);
+/*        TicketService ticketService = applicationContext.getBean(TicketService.class);
         //ticketService.bookTicket(152L, 2L, 26, Ticket.Category.BAR);
         List<TicketImpl> tickets = ticketService.getBookedTickets(new UserImpl(152L, "Hello", "pavel@mail.com"), 2, 1);
         System.out.println();
@@ -75,6 +71,12 @@ public class Application
         System.out.println();
 
         ticketService.cancelTicket(452L);
+        System.out.println();*/
+
+        BookingFacade bf = applicationContext.getBean(BookingFacade.class);
+        LocalDateTime dunaDateTime = LocalDateTime.of(LocalDate.of(2023, Month.APRIL, 30), LocalTime.of(12, 1));
+        List<TicketImpl> bookedTickets = bf.getBookedTickets(new EventImpl(2L, "Duna", Timestamp.valueOf(dunaDateTime)), 10, 1);
+        System.out.println(bookedTickets);
         System.out.println();
     }
 }

@@ -2,24 +2,23 @@ package org.jmp.spring.core.service;
 
 import org.jmp.spring.core.model.Event;
 import org.jmp.spring.core.model.Ticket;
-import org.jmp.spring.core.model.User;
 import org.jmp.spring.core.model.impl.TicketImpl;
 import org.jmp.spring.core.model.impl.UserImpl;
-
 import java.util.List;
 
 public interface TicketService
 {
     /**
      * Book ticket for a specified event on behalf of specified user.
-     * @param userId User Id.
-     * @param eventId Event Id.
-     * @param place Place number.
+     *
+     * @param userId   User Id.
+     * @param eventId  Event Id.
+     * @param place    Place number.
      * @param category Service category.
      * @return Booked ticket object.
      * @throws java.lang.IllegalStateException if this place has already been booked.
      */
-    Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category);
+    TicketImpl bookTicket(long userId, long eventId, int place, Ticket.Category category);
 
     /**
      * Get all booked tickets for specified user. Tickets should be sorted by event date in descending order.

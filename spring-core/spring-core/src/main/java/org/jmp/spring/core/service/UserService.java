@@ -1,9 +1,6 @@
 package org.jmp.spring.core.service;
 
-import org.jmp.spring.core.model.User;
 import org.jmp.spring.core.model.impl.UserImpl;
-import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 public interface UserService
@@ -16,36 +13,40 @@ public interface UserService
     UserImpl getUserById(long userId);
 
 /**
-     * Gets user by its email. Email is strictly matched.
-     * @return User.
-     */
+ * Gets user by its email. Email is strictly matched.
+ *
+ * @return User.
+ */
 
-    User getUserByEmail(String email);
+    UserImpl getUserByEmail(String email);
 
 /**
-     * Get list of users by matching name. Name is matched using 'contains' approach.
-     * In case nothing was found, empty list is returned.
-     * @param name Users name or it's part.
-     * @param pageSize Pagination param. Number of users to return on a page.
-     * @param pageNum Pagination param. Number of the page to return. Starts from 1.
-     * @return List of users.
-     */
+ * Get list of users by matching name. Name is matched using 'contains' approach.
+ * In case nothing was found, empty list is returned.
+ *
+ * @param name     Users name or it's part.
+ * @param pageSize Pagination param. Number of users to return on a page.
+ * @param pageNum  Pagination param. Number of the page to return. Starts from 1.
+ * @return List of users.
+ */
 
-    List<? extends User> getUsersByName(String name, int pageSize, int pageNum);
+    List<UserImpl> getUsersByName(String name, int pageSize, int pageNum);
 
     /**
      * Creates new user. User id should be auto-generated.
+     *
      * @param user User data.
      * @return Created User object.
      */
-    User createUser(UserImpl user);
+    UserImpl createUser(UserImpl user);
 
     /**
      * Updates user using given data.
+     *
      * @param user User data for update. Should have id set.
      * @return Updated User object.
      */
-    User updateUser(UserImpl user);
+    UserImpl updateUser(UserImpl user);
 
     /**
      * Deletes user by its id.

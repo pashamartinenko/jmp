@@ -9,7 +9,6 @@ import org.jmp.spring.core.model.User;
 import org.jmp.spring.core.model.impl.UserImpl;
 import org.jmp.spring.core.service.UserService;
 import org.springframework.data.domain.PageRequest;
-
 import java.util.List;
 
 @Slf4j
@@ -24,22 +23,22 @@ public class UserServiceImpl implements UserService
                 .orElseThrow(() -> new RuntimeException(format("User with id=%d does not exist", userId)));
     }
 
-    public User getUserByEmail(String email) {
+    public UserImpl getUserByEmail(String email) {
         log.info("get user by email {}", email);
         return userDao.findByEmail(email);
     }
 
-    public List<? extends User> getUsersByName(String name, int pageSize, int pageNum) {
+    public List<UserImpl> getUsersByName(String name, int pageSize, int pageNum) {
         log.info("get user by name {}", name);
         return userDao.findAllByNameContainingIgnoreCase(name, PageRequest.of(pageNum - 1, pageSize));
     }
 
-    public User createUser(UserImpl user) {
+    public UserImpl createUser(UserImpl user) {
         log.info("create user {}", user);
         return userDao.save(user);
     }
 
-    public User updateUser(UserImpl user) {
+    public UserImpl updateUser(UserImpl user) {
         User existingUser = getUserById(user.getId());
         log.info("update user {}", existingUser);
         return userDao.save(user);

@@ -9,7 +9,6 @@ import org.jmp.spring.core.model.Event;
 import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.service.EventService;
 import org.springframework.data.domain.PageRequest;
-
 import java.util.Date;
 import java.util.List;
 
@@ -25,25 +24,25 @@ public class EventServiceImpl implements EventService
                 .orElseThrow(() -> new RuntimeException(format("Event with id=%d does not exist", eventId)));
     }
 
-    public List<? extends Event> getEventsByTitle(String title, int pageSize, int pageNum) {
+    public List<EventImpl> getEventsByTitle(String title, int pageSize, int pageNum) {
         log.info("get events by title {}", title);
         return eventDao.findAllByTitleContainingIgnoreCase(title, PageRequest.of(pageNum - 1, pageSize));
     }
 
-    public List<? extends Event> getEventsForDay(Date day, int pageSize, int pageNum) {
+    public List<EventImpl> getEventsForDay(Date day, int pageSize, int pageNum) {
         log.info("get events for day {}", day);
         return eventDao.findAllByDate(day, PageRequest.of(pageNum - 1, pageSize));
     }
 
-    public Event createEvent(EventImpl event) {
+    public EventImpl createEvent(EventImpl event) {
         log.info("create event {}", event);
         return eventDao.save(event);
     }
 
-    public Event updateEvent(Event event) {
+    public EventImpl updateEvent(EventImpl event) {
         Event existingEvent = getEventById(event.getId());
         log.info("update event {}", existingEvent);
-        return eventDao.save((EventImpl) event);
+        return eventDao.save(event);
     }
 
     public boolean deleteEvent(long eventId) {

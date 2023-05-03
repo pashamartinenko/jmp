@@ -15,9 +15,7 @@ import org.jmp.spring.core.service.EventService;
 import org.jmp.spring.core.service.TicketService;
 import org.jmp.spring.core.service.UserService;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-
 import java.util.List;
 
 @Slf4j
@@ -29,7 +27,7 @@ public class TicketServiceImpl implements TicketService
     private TicketDao ticketDao;
 
     @Transactional
-    public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {
+    public TicketImpl bookTicket(long userId, long eventId, int place, Ticket.Category category) {
         log.info("book ticket by userId {}, eventId {}, place {}, category {}", userId, eventId, place, category);
         UserImpl userById = userService.getUserById(userId);
         EventImpl eventById = eventService.getEventById(eventId);

@@ -1,6 +1,6 @@
 postgres:
     image: postgres:15.1
-    container_name: postgres
+    container_name: postgres1
     ports:
       - "5432:5432"
     environment:

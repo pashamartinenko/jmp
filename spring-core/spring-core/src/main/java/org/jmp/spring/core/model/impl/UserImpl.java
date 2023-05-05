@@ -8,6 +8,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -20,6 +21,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class UserImpl implements User
 {
@@ -27,12 +29,6 @@ public class UserImpl implements User
     public UserImpl(long id, String name, String email)
     {
         this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
-    public UserImpl(String name, String email)
-    {
         this.name = name;
         this.email = email;
     }

@@ -5,6 +5,7 @@ import org.jmp.spring.core.facade.BookingFacade;
 import org.jmp.spring.core.model.Ticket;
 import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.model.impl.TicketImpl;
+import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
 import org.jmp.spring.core.service.EventService;
 import org.jmp.spring.core.service.TicketService;
@@ -114,5 +115,12 @@ public class BookingFacadeImpl implements BookingFacade
     public boolean cancelTicket(long ticketId)
     {
         return ticketService.cancelTicket(ticketId);
+    }
+
+    @Override
+    public UserImpl refillUserAccount(UserImpl user, UserAccount userAccount)
+    {
+
+        return userService.refillUserAccount(user, userAccount);
     }
 }

@@ -31,6 +31,7 @@ public class TicketServiceImpl implements TicketService
         log.info("book ticket by userId {}, eventId {}, place {}, category {}", userId, eventId, place, category);
         UserImpl userById = userService.getUserById(userId);
         EventImpl eventById = eventService.getEventById(eventId);
+
         eventById.getTickets().stream()
                 .filter(ticket -> ticket.getPlace() == place)
                 .findAny()
@@ -38,6 +39,15 @@ public class TicketServiceImpl implements TicketService
                     log.info("Ticket already exists {}", ticket);
                     throw new IllegalStateException(format("The place=%d for the event with id=%d has already been booked", place, eventId));
                 });
+
+        if (userById.getUserAccount() == null || userById.getUserAccount().getBalance() < eventById.getPrice()) {
+            throw new IllegalStateException(format("Not enough balance for user with id=%d to book a ticket for eventId=%d. " +
+                    "Event price = %d, user balance = %d", userId, eventId, eventById.getPrice(), userById.getUserAccount().getBalance()));
+        }
+
+        userById.getUserAccount().withdrawBalance(eventById.getPrice());
+        userService.updateUser(userById);
+
         TicketImpl ticket = new TicketImpl(category, place, eventById, userById);
         return ticketDao.save(ticket);
     }

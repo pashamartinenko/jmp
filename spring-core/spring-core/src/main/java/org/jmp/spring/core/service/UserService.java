@@ -1,5 +1,6 @@
 package org.jmp.spring.core.service;
 
+import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
 import java.util.List;
 
@@ -56,4 +57,6 @@ public interface UserService
     boolean deleteUser(long userId);
 
     UserImpl findByIdAndNameAndEmail(Long id, String name, String email);
+
+    UserImpl refillUserAccount(UserImpl user, UserAccount userAccount);
 }

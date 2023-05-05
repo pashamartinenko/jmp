@@ -3,6 +3,7 @@ package org.jmp.spring.core.facade;
 import org.jmp.spring.core.model.Ticket;
 import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.model.impl.TicketImpl;
+import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
 import java.util.Date;
 import java.util.List;
@@ -152,4 +153,11 @@ public interface BookingFacade {
      */
     boolean cancelTicket(long ticketId);
 
+    /**
+     * Refill user account for specified user.
+     * @param user User
+     * @param userAccount UserAccount
+     * @return User with updated UserAccount.
+     */
+    UserImpl refillUserAccount(UserImpl user, UserAccount userAccount);
 }

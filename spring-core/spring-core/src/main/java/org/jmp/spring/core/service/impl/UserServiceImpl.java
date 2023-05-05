@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.core.dao.UserDao;
 import org.jmp.spring.core.model.User;
+import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
 import org.jmp.spring.core.service.UserService;
 import org.springframework.data.domain.PageRequest;
@@ -56,5 +57,24 @@ public class UserServiceImpl implements UserService
     public UserImpl findByIdAndNameAndEmail(Long id, String name, String email) {
         log.info("find user by id={}, name={} and email={}", id, name, email);
         return userDao.findByIdAndNameAndEmail(id, name, email);
+    }
+
+    public UserImpl refillUserAccount(UserImpl user, UserAccount userAccount) {
+        log.info("Refill user account by userAccount={} for user={}", userAccount, user);
+        UserImpl existingUser = findByIdAndNameAndEmail(user.getId(), user.getName(), user.getEmail());
+        if (existingUser == null)
+        {
+            throw new IllegalStateException(format("User with name=%s and email=%s does not exist", user.getName(), user.getEmail()));
+        }
+
+        UserAccount existingUserAccount = existingUser.getUserAccount();
+        if (existingUserAccount != null) {
+            Long balance = existingUserAccount.getBalance();
+            if (balance != null) {
+                userAccount.addBalance(balance);
+            }
+        }
+        user.setUserAccount(userAccount);
+        return userDao.save(user);
     }
 }

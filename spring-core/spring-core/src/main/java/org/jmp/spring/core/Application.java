@@ -9,6 +9,7 @@ import org.jmp.spring.core.model.Ticket;
 import org.jmp.spring.core.model.User;
 import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.model.impl.TicketImpl;
+import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
 import org.jmp.spring.core.service.EventService;
 import org.jmp.spring.core.service.TicketService;
@@ -75,7 +76,11 @@ public class Application
 
         BookingFacade bf = applicationContext.getBean(BookingFacade.class);
         LocalDateTime dunaDateTime = LocalDateTime.of(LocalDate.of(2023, Month.APRIL, 30), LocalTime.of(12, 1));
-        List<TicketImpl> bookedTickets = bf.getBookedTickets(new EventImpl(2L, "Duna", Timestamp.valueOf(dunaDateTime)), 10, 1);
+        EventImpl event = new EventImpl(2L, "Duna", Timestamp.valueOf(dunaDateTime), 2900L);
+        List<TicketImpl> bookedTickets = bf.getBookedTickets(event, 10, 1);
+        UserImpl user = new UserImpl(152L, "Hello", "pavel@mail.com");
+        /*bf.refillUserAccount(user, new UserAccount(1000L));*/
+        bf.bookTicket(user.getId(), event.getId(), 38, Ticket.Category.BAR);
         System.out.println(bookedTickets);
         System.out.println();
     }

@@ -16,4 +16,6 @@ public interface Event {
     void setTitle(String title);
     Date getDate();
     void setDate(Date date);
+    Long getPrice();
+    void setPrice(Long price);
 }

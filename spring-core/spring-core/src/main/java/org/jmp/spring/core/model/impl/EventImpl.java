@@ -34,20 +34,17 @@ public class EventImpl implements Event
 
     private Date date;
 
+    private Long price;
+
     @OneToMany(mappedBy = "event")
     private List<TicketImpl> tickets;
 
-    public EventImpl(long id, String title, Date date)
+    public EventImpl(long id, String title, Date date, Long price)
     {
         this.id = id;
         this.title = title;
         this.date = date;
-    }
-
-    public EventImpl(String title, Date date)
-    {
-        this.title = title;
-        this.date = date;
+        this.price = price;
     }
 
     @Override

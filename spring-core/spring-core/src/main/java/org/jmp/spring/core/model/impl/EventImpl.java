@@ -1,8 +1,6 @@
 package org.jmp.spring.core.model.impl;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -13,17 +11,15 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.jmp.spring.core.model.Event;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(schema = "bookings", name = "event")
 @Getter
 @Setter
-@ToString(exclude = "tickets")
+@ToString
 @NoArgsConstructor
 public class EventImpl implements Event
 {
@@ -37,6 +33,7 @@ public class EventImpl implements Event
     private Long price;
 
     @OneToMany(mappedBy = "event")
+    @ToString.Exclude
     private List<TicketImpl> tickets;
 
     public EventImpl(long id, String title, Date date, Long price)

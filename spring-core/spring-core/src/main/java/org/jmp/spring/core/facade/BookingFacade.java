@@ -157,7 +157,7 @@ public interface BookingFacade {
      * Refill user account for specified user.
      * @param user User
      * @param userAccount UserAccount
-     * @return User with updated UserAccount.
+     * @return User with UserAccount updated.
      */
     UserImpl refillUserAccount(UserImpl user, UserAccount userAccount);
 }

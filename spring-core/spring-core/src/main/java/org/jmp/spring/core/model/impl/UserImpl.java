@@ -23,14 +23,6 @@ import java.util.Objects;
 @NoArgsConstructor
 public class UserImpl implements User
 {
-
-    public UserImpl(long id, String name, String email)
-    {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
     @Id
     @GeneratedValue
     private long id;
@@ -43,6 +35,21 @@ public class UserImpl implements User
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
     private List<TicketImpl> tickets;
+
+    public UserImpl(long id, String name, String email, UserAccount userAccount)
+    {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.userAccount = userAccount;
+    }
+
+    public UserImpl(String name, String email, UserAccount userAccount)
+    {
+        this.name = name;
+        this.email = email;
+        this.userAccount = userAccount;
+    }
 
     @Override
     public boolean equals(Object o)

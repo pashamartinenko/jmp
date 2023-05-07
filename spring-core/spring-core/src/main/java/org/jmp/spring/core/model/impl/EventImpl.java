@@ -44,6 +44,13 @@ public class EventImpl implements Event
         this.price = price;
     }
 
+    public EventImpl(String title, Date date, Long price)
+    {
+        this.title = title;
+        this.date = date;
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o)
     {

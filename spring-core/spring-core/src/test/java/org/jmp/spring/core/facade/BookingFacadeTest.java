@@ -9,6 +9,7 @@ import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.model.impl.TicketImpl;
 import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -34,6 +35,13 @@ class BookingFacadeTest
 
     @Inject
     private BookingFacade bookingFacade;
+
+    @AfterEach
+    void tearDown() {
+        ticketDao.deleteAll();
+        userDao.deleteAll();
+        eventDao.deleteAll();
+    }
 
     @Test
     void shouldGetEventById() {

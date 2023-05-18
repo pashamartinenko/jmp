@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <context:property-placeholder location="classpath:application.properties"/>
+    <context:annotation-config/>
+    <!-- persistence config -->
+    <jpa:repositories base-package="org.jmp.spring.core.dao"/>
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="org.jmp.spring.core.model.impl" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${db.driverClassName}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    <tx:annotation-driven />
 
-    <util:map id="storage" map-class="java.util.HashMap"/>
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
-    <bean id="storageClass" class="org.jmp.spring.core.storage.Storage" init-method="init" p:filePath="${storage.path}" p:objectMapper-ref="objectMapper" p:storageMap-ref="storage"/>
-
-    <bean id="userDao" class="org.jmp.spring.core.dao.impl.UserDaoImpl" p:storage-ref="storageClass"/>
-    <bean id="eventDao" class="org.jmp.spring.core.dao.impl.EventDaoImpl" p:storage-ref="storageClass"/>
-    <bean id="ticketDao" class="org.jmp.spring.core.dao.impl.TicketDaoImpl" p:storage-ref="storageClass" p:userDao-ref="userDao" p:eventDao-ref="eventDao"/>
-
     <bean id="userService" class="org.jmp.spring.core.service.impl.UserServiceImpl" autowire="constructor"/>
     <bean id="eventService" class="org.jmp.spring.core.service.impl.EventServiceImpl" autowire="byName"/>
     <bean id="ticketService" class="org.jmp.spring.core.service.impl.TicketServiceImpl" autowire="byType"/>

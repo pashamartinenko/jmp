@@ -21,7 +21,7 @@ import java.time.Month;
 import java.util.Date;
 import java.util.List;
 
-@SpringJUnitConfig(locations = {"classpath:/config.xml"})
+@SpringJUnitConfig(locations = {"classpath:webapp/WEB-INF/config.xml"})
 class BookingFacadeTest
 {
     @Inject

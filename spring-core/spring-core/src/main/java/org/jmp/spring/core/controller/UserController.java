@@ -8,6 +8,6 @@ public class UserController
 {
     @RequestMapping("/")
     public String getUser() {
-        return "Hello";
+        return "what the mvc";
     }
 }

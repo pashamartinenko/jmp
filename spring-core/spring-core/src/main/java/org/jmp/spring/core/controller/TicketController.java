@@ -1,7 +1,10 @@
 package org.jmp.spring.core.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TicketController
@@ -9,6 +12,11 @@ public class TicketController
     @RequestMapping("/tickets")
     public String bookTicket() {
         return "home";
+    }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "index";
     }
 }
 

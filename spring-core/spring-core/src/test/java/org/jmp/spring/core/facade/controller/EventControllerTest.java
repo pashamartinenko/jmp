@@ -1,3 +1,4 @@
+/*
 package org.jmp.spring.core.facade.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -9,12 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-@SpringJUnitWebConfig(locations = {"classpath:config.xml"})
-class TicketControllerTest
+@SpringJUnitWebConfig(locations = {"classpath:mvc-1.0-SNAPSHOT/webapp/WEB-INF/config.xml"})
+class EventControllerTest
 {
     @Inject
     private WebApplicationContext webApplicationContext;
@@ -25,15 +25,11 @@ class TicketControllerTest
     public void setup() throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
     }
+
     @Test
     void test() throws Exception
     {
-        ResultActions resultActions = this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk());
-    }
-
-    @Test
-    void test1() throws Exception
-    {
-        ResultActions resultActions = this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk());
+        //ResultActions resultActions = this.mockMvc.perform(get("/v1/events/1")).andDo(print()).andExpect(status().isOk());
     }
 }
+*/

@@ -15,6 +15,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.jmp.spring.core.model.Ticket;
+
 import java.util.Objects;
 
 @Entity

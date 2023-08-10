@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.jmp.spring.core.model.User;
+
 import java.util.List;
 import java.util.Objects;
 

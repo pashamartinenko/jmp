@@ -13,6 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ import java.time.Month;
 import java.util.Date;
 import java.util.List;
 
-@SpringJUnitConfig(locations = {"classpath:config.xml"})
+@SpringJUnitConfig(locations = {"classpath:/config.xml"})
 class BookingFacadeTest
 {
     @Inject

@@ -1,6 +1,7 @@
 package org.jmp.spring.core.service;
 
 import org.jmp.spring.core.model.impl.EventImpl;
+
 import java.util.Date;
 import java.util.List;
 

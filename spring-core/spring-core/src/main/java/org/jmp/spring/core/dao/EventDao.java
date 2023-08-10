@@ -3,6 +3,7 @@ package org.jmp.spring.core.dao;
 import org.jmp.spring.core.model.impl.EventImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+
 import java.util.Date;
 import java.util.List;
 

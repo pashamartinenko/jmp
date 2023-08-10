@@ -2,6 +2,7 @@ package org.jmp.spring.core.service;
 
 import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
+
 import java.util.List;
 
 public interface UserService

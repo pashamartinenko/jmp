@@ -5,6 +5,7 @@ import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.model.impl.TicketImpl;
 import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
+
 import java.util.Date;
 import java.util.List;
 
@@ -122,7 +123,7 @@ public interface BookingFacade {
      * @param place    Place number.
      * @param category Service category.
      * @return Booked ticket object.
-     * @throws java.lang.IllegalStateException if this place has already been booked.
+     * @throws IllegalStateException if this place has already been booked.
      */
     TicketImpl bookTicket(long userId, long eventId, int place, Ticket.Category category);
 

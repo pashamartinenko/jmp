@@ -17,11 +17,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td th:text="${event.id}">January</td>
-        <td th:text="${event.title}">$100</td>
-        <td th:text="${event.date}">$100</td>
-        <td th:text="${event.price}">$100</td>
+    <tr th:each="event: ${events}">
+        <td th:text="${event.id}">Placeholder</td>
+        <td th:text="${event.title}">Placeholder</td>
+        <td th:text="${event.date}">Placeholder</td>
+        <td th:text="${event.price}">Placeholder</td>
     </tr>
     </tbody>
 </table>

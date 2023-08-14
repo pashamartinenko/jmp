@@ -1,7 +1,5 @@
 package org.jmp.spring.core.controller;
 
-import static java.lang.String.format;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.core.facade.BookingFacade;
@@ -32,40 +30,41 @@ import java.util.Map;
 @RequestMapping("/v1/events")
 public class EventController
 {
-    private static final String EVENTS_VIEW = "events";
+    private static final String EVENTS_VIEW_NAME = "events";
+    private static final String EVENTS_MODEL_NAME = "events";
     private final BookingFacade bookingFacade;
 
     @GetMapping("/id/{eventId}")
     public ModelAndView getEventById(@PathVariable Long eventId) {
-        log.info(format("GET events by id=%d", eventId));
-        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW);
+        log.info("GET events by id={}", eventId);
+        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW_NAME);
         EventImpl event = bookingFacade.getEventById(eventId);
-        modelAndView.addObject("events", List.of(event));
+        modelAndView.addObject(EVENTS_MODEL_NAME, List.of(event));
         return modelAndView;
     }
 
     @GetMapping("/title/{title}")
     public ModelAndView getEventsByTitle(@PathVariable String title, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(name = "offset", defaultValue = "1") Integer pageNum) {
-        log.info(format("GET events by title=%s, pageSize=%d, pageNum=%d", title, pageSize, pageNum));
-        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW);
+        log.info("GET events by title={}, pageSize={}, pageNum={}", title, pageSize, pageNum);
+        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW_NAME);
         List<EventImpl> events = bookingFacade.getEventsByTitle(title, pageSize, pageNum);
-        modelAndView.addObject("events", events);
+        modelAndView.addObject(EVENTS_MODEL_NAME, events);
         return modelAndView;
     }
 
     @GetMapping("/day/{day}")
     public ModelAndView getEventsForDay(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date day, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(name = "offset", defaultValue = "1") Integer pageNum) {
-        log.info(format("GET events by day=%s, pageSize=%d, pageNum=%d", day, pageSize, pageNum));
-        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW);
+        log.info("GET events by day={}, pageSize={}, pageNum={}", day, pageSize, pageNum);
+        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW_NAME);
         List<EventImpl> events = bookingFacade.getEventsForDay(day, pageSize, pageNum);
-        modelAndView.addObject("events", events);
+        modelAndView.addObject(EVENTS_MODEL_NAME, events);
         return modelAndView;
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView createEvent(@RequestParam Map<String, String> parameters) throws ParseException
     {
-        log.info(format("POST /events parameters: %s", parameters));
+        log.info("POST /events parameters: {}", parameters);
         String title = parameters.get("title");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = parameters.get("date");
@@ -76,15 +75,15 @@ public class EventController
 
         EventImpl createdEvent = bookingFacade.createEvent(event);
 
-        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW);
-        modelAndView.addObject("events", List.of(createdEvent));
+        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW_NAME);
+        modelAndView.addObject(EVENTS_MODEL_NAME, List.of(createdEvent));
         return modelAndView;
     }
 
     @PatchMapping(value = "/id/{eventId}")
     public ModelAndView updateEvent(@PathVariable Long eventId, @RequestBody MultiValueMap<String, String> parameters) throws ParseException
     {
-        log.info(format("PATCH /events/id/%d parameters: %s", eventId, parameters));
+        log.info("PATCH /events/id/{} parameters: {}", eventId, parameters);
         String title = parameters.getFirst("title");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateString = parameters.getFirst("date");
@@ -95,14 +94,14 @@ public class EventController
 
         EventImpl createdEvent = bookingFacade.updateEvent(event);
 
-        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW);
-        modelAndView.addObject("events", List.of(createdEvent));
+        ModelAndView modelAndView = new ModelAndView(EVENTS_VIEW_NAME);
+        modelAndView.addObject(EVENTS_MODEL_NAME, List.of(createdEvent));
         return modelAndView;
     }
 
     @DeleteMapping(value = "/id/{eventId}")
     public ResponseEntity<String> deleteEvent(@PathVariable Long eventId) {
-        log.info(format("DELETE /events/id/%d", eventId));
+        log.info("DELETE /events/id/{}", eventId);
         bookingFacade.deleteEvent(eventId);
         return ResponseEntity.ok().build();
     }

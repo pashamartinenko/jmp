@@ -5,7 +5,6 @@ import static java.lang.String.format;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.core.dao.UserDao;
-import org.jmp.spring.core.model.User;
 import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
 import org.jmp.spring.core.service.UserService;
@@ -40,9 +39,24 @@ public class UserServiceImpl implements UserService
     }
 
     public UserImpl updateUser(UserImpl user) {
-        User existingUser = getUserById(user.getId());
-        log.info("update user {}", existingUser);
-        return userDao.save(user);
+        UserImpl foundUser = getUserById(user.getId());
+        log.info("update user {}", foundUser);
+        String email = user.getEmail();
+        if (email != null) {
+            foundUser.setEmail(email);
+        }
+        String name = user.getName();
+        if (name != null) {
+            foundUser.setName(name);
+        }
+        UserAccount userAccount = user.getUserAccount();
+        if (userAccount != null) {
+            Long balance = userAccount.getBalance();
+            if (balance != null) {
+                foundUser.setUserAccount(userAccount);
+            }
+        }
+        return userDao.save(foundUser);
     }
 
     public boolean deleteUser(long userId) {

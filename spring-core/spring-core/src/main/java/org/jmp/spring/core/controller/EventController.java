@@ -102,6 +102,7 @@ public class EventController
 
     @DeleteMapping(value = "/id/{eventId}")
     public ResponseEntity<String> deleteEvent(@PathVariable Long eventId) {
+        log.info(format("DELETE /events/id/%d", eventId));
         bookingFacade.deleteEvent(eventId);
         return ResponseEntity.ok().build();
     }

@@ -5,7 +5,6 @@ import static java.lang.String.format;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.core.dao.EventDao;
-import org.jmp.spring.core.model.Event;
 import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.service.EventService;
 import org.springframework.data.domain.PageRequest;
@@ -40,9 +39,22 @@ public class EventServiceImpl implements EventService
     }
 
     public EventImpl updateEvent(EventImpl event) {
-        Event existingEvent = getEventById(event.getId());
-        log.info("update event {}", existingEvent);
-        return eventDao.save(event);
+        EventImpl foundEvent = getEventById(event.getId());
+
+        String title = event.getTitle();
+        if(title != null) {
+            foundEvent.setTitle(title);
+        }
+        Long price = event.getPrice();
+        if(price != null) {
+            foundEvent.setPrice(price);
+        }
+        Date date = event.getDate();
+        if(date != null) {
+            foundEvent.setDate(date);
+        }
+        log.info("update event {}", foundEvent);
+        return eventDao.save(foundEvent);
     }
 
     public boolean deleteEvent(long eventId) {

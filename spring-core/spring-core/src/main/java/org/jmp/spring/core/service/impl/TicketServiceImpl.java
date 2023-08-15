@@ -28,7 +28,7 @@ public class TicketServiceImpl implements TicketService
     private TicketDao ticketDao;
 
     @Transactional
-    public TicketImpl bookTicket(long userId, long eventId, int place, Ticket.Category category) {
+    public TicketImpl bookTicket(Long userId, Long eventId, Integer place, Ticket.Category category) {
         log.info("book ticket by userId {}, eventId {}, place {}, category {}", userId, eventId, place, category);
         UserImpl userById = userService.getUserById(userId);
         EventImpl eventById = eventService.getEventById(eventId);

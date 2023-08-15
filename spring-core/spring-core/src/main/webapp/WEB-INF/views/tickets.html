@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ticket Thymeleaf template</title>
+</head>
+<body>
+<table>
+    <caption>Tickets</caption>
+    <thead>
+    <tr>
+        <th>Ticket Id</th>
+        <th>Event Id</th>
+        <th>User Id</th>
+        <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ticket: ${tickets}">
+        <td th:text="${ticket.id}">Placeholder</td>
+        <td th:text="${ticket.event?.id}">Placeholder</td>
+        <td th:text="${ticket.user?.id}">Placeholder</td>
+        <td th:text="${ticket.category}">Placeholder</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

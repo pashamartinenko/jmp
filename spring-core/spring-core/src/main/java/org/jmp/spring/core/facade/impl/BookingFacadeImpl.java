@@ -95,7 +95,7 @@ public class BookingFacadeImpl implements BookingFacade
     }
 
     @Override
-    public TicketImpl bookTicket(long userId, long eventId, int place, Ticket.Category category)
+    public TicketImpl bookTicket(Long userId, Long eventId, Integer place, Ticket.Category category)
     {
         return ticketService.bookTicket(userId, eventId, place, category);
     }

@@ -1,20 +1,37 @@
 package org.jmp.spring.core.controller;
 
+import static java.lang.String.format;
+
+import com.lowagie.text.DocumentException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.core.facade.BookingFacade;
 import org.jmp.spring.core.model.Ticket;
+import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.model.impl.TicketImpl;
+import org.jmp.spring.core.model.impl.UserImpl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.xhtmlrenderer.pdf.ITextRenderer;
+import java.io.ByteArrayOutputStream;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/v1/tickets")
 @RequiredArgsConstructor
+@Slf4j
 public class TicketController
 {
 
@@ -23,9 +40,12 @@ public class TicketController
 
     private final BookingFacade bookingFacade;
 
+    private final TemplateEngine templateEngine;
+
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView bookTicket(@RequestParam Map<String, String> parameters) {
+        log.info("Create ticket using parameters: {}", parameters);
         String userIdString = parameters.get("userId");
         Long userId = userIdString != null ? Long.valueOf(userIdString) : null;
         String eventIdString = parameters.get("eventId");
@@ -39,6 +59,58 @@ public class TicketController
 
         ModelAndView modelAndView = new ModelAndView(TICKETS_VIEW_NAME);
         modelAndView.addObject(TICKETS_MODEL_NAME, createdTicket);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/user/id/{userId}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> getBookedTicketsPdf(@PathVariable Long userId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) throws DocumentException
+    {
+        log.info("Get booked tickets in pdf for user with id={}", userId);
+        UserImpl user = bookingFacade.getUserById(userId);
+        List<TicketImpl> bookedTickets = bookingFacade.getBookedTickets(user, pageSize, pageNum);
+        Context thymeleafContext = new Context();
+        thymeleafContext.setVariable(TICKETS_MODEL_NAME, bookedTickets);
+        String html = templateEngine.process(TICKETS_VIEW_NAME, thymeleafContext);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ITextRenderer renderer = new ITextRenderer();
+        renderer.setDocumentFromString(html);
+        renderer.layout();
+        renderer.createPDF(outputStream);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentDispositionFormData("attachment", format("ticket_for_user_%d.pdf", userId));
+
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(outputStream.toByteArray());
+    }
+
+    @GetMapping(value = "/user/id/{userId}", produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView getBookedTicketsHtml(@PathVariable Long userId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum)
+    {
+        log.info("Get booked tickets in html for user with id={}", userId);
+        UserImpl user = bookingFacade.getUserById(userId);
+        List<TicketImpl> bookedTickets = bookingFacade.getBookedTickets(user, pageSize, pageNum);
+        ModelAndView modelAndView = new ModelAndView(TICKETS_VIEW_NAME);
+        modelAndView.addObject(TICKETS_MODEL_NAME, bookedTickets);
+        return modelAndView;
+    }
+
+
+    @DeleteMapping(value = "/id/{ticketId}")
+    public ResponseEntity<String> deleteTicket(@PathVariable Long ticketId) {
+        log.info("DELETE /tickets/id/{}", ticketId);
+        bookingFacade.cancelTicket(ticketId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/event/id/{eventId}")
+    public ModelAndView getBookedTickets(@PathVariable Long eventId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) {
+        log.info("Get booked tickets for event with id={}", eventId);
+        EventImpl event = bookingFacade.getEventById(eventId);
+        List<TicketImpl> bookedTickets = bookingFacade.getBookedTickets(event, pageSize, pageNum);
+        ModelAndView modelAndView = new ModelAndView(TICKETS_VIEW_NAME);
+        modelAndView.addObject(TICKETS_MODEL_NAME, bookedTickets);
         return modelAndView;
     }
 }

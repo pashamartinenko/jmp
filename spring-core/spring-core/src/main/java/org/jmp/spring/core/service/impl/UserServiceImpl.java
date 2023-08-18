@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService
     public UserImpl getUserById(long userId) {
         log.info("get user by id {}", userId);
         return userDao.findById(userId)
-                .orElseThrow(() -> new RuntimeException(format("User with id=%d does not exist", userId)));
+                .orElseThrow(() -> new IllegalStateException(format("User with id=%d does not exist", userId)));
     }
 
     public UserImpl getUserByEmail(String email) {

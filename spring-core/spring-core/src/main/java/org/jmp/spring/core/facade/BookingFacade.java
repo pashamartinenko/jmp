@@ -161,4 +161,9 @@ public interface BookingFacade {
      * @return User with UserAccount updated.
      */
     UserImpl refillUserAccount(UserImpl user, UserAccount userAccount);
+
+    /**
+     * Preloads tickets from resources/tickets.xml file
+     */
+    void preloadTickets();
 }

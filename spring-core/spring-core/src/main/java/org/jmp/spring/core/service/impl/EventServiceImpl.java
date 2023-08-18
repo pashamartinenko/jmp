@@ -20,7 +20,7 @@ public class EventServiceImpl implements EventService
     public EventImpl getEventById(long eventId) {
         log.info("get events by id {}", eventId);
         return eventDao.findById(eventId)
-                .orElseThrow(() -> new RuntimeException(format("Event with id=%d does not exist", eventId)));
+                .orElseThrow(() -> new IllegalStateException(format("Event with id=%d does not exist", eventId)));
     }
 
     public List<EventImpl> getEventsByTitle(String title, int pageSize, int pageNum) {

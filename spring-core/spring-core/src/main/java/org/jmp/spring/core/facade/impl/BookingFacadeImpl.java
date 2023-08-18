@@ -10,7 +10,6 @@ import org.jmp.spring.core.model.impl.UserImpl;
 import org.jmp.spring.core.service.EventService;
 import org.jmp.spring.core.service.TicketService;
 import org.jmp.spring.core.service.UserService;
-
 import java.util.Date;
 import java.util.List;
 
@@ -123,5 +122,11 @@ public class BookingFacadeImpl implements BookingFacade
     {
 
         return userService.refillUserAccount(user, userAccount);
+    }
+
+    @Override
+    public void preloadTickets()
+    {
+
     }
 }

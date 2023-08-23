@@ -1,9 +1,10 @@
-package org.jmp.spring.core.facade;
+package org.jmp.spring.core.facade.impl;
 
 import jakarta.inject.Inject;
 import org.jmp.spring.core.dao.EventDao;
 import org.jmp.spring.core.dao.TicketDao;
 import org.jmp.spring.core.dao.UserDao;
+import org.jmp.spring.core.facade.BookingFacade;
 import org.jmp.spring.core.model.Ticket;
 import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.model.impl.TicketImpl;
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @SpringJUnitConfig(locations = {"classpath:/config.xml"})
-class BookingFacadeTest
+class BookingFacadeImplTest
 {
     @Inject
     private EventDao eventDao;

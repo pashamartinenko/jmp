@@ -1,16 +1,13 @@
 package org.jmp.spring.core.service;
 
-import org.jmp.spring.core.model.Event;
-import org.jmp.spring.core.model.Ticket;
 import org.jmp.spring.core.model.impl.TicketImpl;
-import org.jmp.spring.core.model.impl.UserImpl;
-
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface TicketService
 {
-    TicketImpl bookTicket(Long userId, Long eventId, Integer place, Ticket.Category category);
-    List<TicketImpl> getBookedTickets(UserImpl user, int pageSize, int pageNum);
-    List<TicketImpl> getBookedTickets(Event event, int pageSize, int pageNum);
+    TicketImpl createTicket(TicketImpl ticket);
+    List<TicketImpl> findByUserId(Long userId, Pageable pageable);
+    List<TicketImpl> findByEventId(Long eventId, Pageable pageable);
     boolean cancelTicket(long ticketId);
 }

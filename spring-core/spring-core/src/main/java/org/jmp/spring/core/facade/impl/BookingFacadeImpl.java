@@ -1,6 +1,10 @@
 package org.jmp.spring.core.facade.impl;
 
+import static java.lang.String.format;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.core.facade.BookingFacade;
 import org.jmp.spring.core.model.Ticket;
 import org.jmp.spring.core.model.impl.EventImpl;
@@ -10,10 +14,13 @@ import org.jmp.spring.core.model.impl.UserImpl;
 import org.jmp.spring.core.service.EventService;
 import org.jmp.spring.core.service.TicketService;
 import org.jmp.spring.core.service.UserService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Slf4j
 public class BookingFacadeImpl implements BookingFacade
 {
 
@@ -94,21 +101,56 @@ public class BookingFacadeImpl implements BookingFacade
     }
 
     @Override
+    @Transactional
     public TicketImpl bookTicket(Long userId, Long eventId, Integer place, Ticket.Category category)
     {
-        return ticketService.bookTicket(userId, eventId, place, category);
+        log.info("book ticket by userId {}, eventId {}, place {}, category {}", userId, eventId, place, category);
+        UserImpl userById = userService.getUserById(userId);
+        EventImpl eventById = eventService.getEventById(eventId);
+
+        eventById.getTickets().stream()
+                .filter(ticket -> ticket.getPlace() == place)
+                .findAny()
+                .ifPresent(ticket -> {
+                    log.info("Ticket already exists {}", ticket);
+                    throw new IllegalStateException(format("The place=%d for the event with id=%d has already been booked", place, eventId));
+                });
+
+        if (userById.getUserAccount() == null || userById.getUserAccount().getBalance() < eventById.getPrice()) {
+            throw new IllegalStateException(format("Not enough balance for user with id=%d to book a ticket for eventId=%d. " +
+                    "Event price = %d, user balance = %d", userId, eventId, eventById.getPrice(), userById.getUserAccount().getBalance()));
+        }
+
+        userById.getUserAccount().withdrawBalance(eventById.getPrice());
+        userService.updateUser(userById);
+
+        TicketImpl ticket = new TicketImpl(category, place, eventById, userById);
+        return ticketService.createTicket(ticket);
     }
 
     @Override
     public List<TicketImpl> getBookedTickets(UserImpl user, int pageSize, int pageNum)
     {
-        return ticketService.getBookedTickets(user, pageSize, pageNum);
+        log.info("get booked tickets for user {}", user);
+        UserImpl existingUser = userService.findByIdAndNameAndEmail(user.getId(), user.getName(), user.getEmail());
+        if (existingUser == null)
+        {
+            throw new IllegalStateException(format("User with name=%s and email=%s does not exist", user.getName(), user.getEmail()));
+        }
+        return ticketService.findByUserId(existingUser.getId(), PageRequest.of(pageNum - 1, pageSize, Sort.by("event.date").descending()));
     }
 
     @Override
     public List<TicketImpl> getBookedTickets(EventImpl event, int pageSize, int pageNum)
     {
-        return ticketService.getBookedTickets(event, pageSize, pageNum);
+        log.info("book ticket for event {}", event);
+        EventImpl existingEvent = eventService.findByIdAndTitleAndDate(event.getId(), event.getTitle(), event.getDate());
+        if (existingEvent == null)
+        {
+            throw new IllegalStateException(format("Event with id=%d, title=%s and date=%s does not exist", event.getId(),
+                    event.getTitle(), event.getDate()));
+        }
+        return ticketService.findByEventId(existingEvent.getId(), PageRequest.of(pageNum - 1, pageSize, Sort.by("user.email")));
     }
 
     @Override
@@ -123,10 +165,8 @@ public class BookingFacadeImpl implements BookingFacade
 
         return userService.refillUserAccount(user, userAccount);
     }
-
     @Override
-    public void preloadTickets()
-    {
+    public void preloadTickets() {
 
     }
 }

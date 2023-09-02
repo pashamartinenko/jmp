@@ -8,13 +8,14 @@
 		<version>2.7.9</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.jmp.nosql</groupId>
 	<artifactId>couchbase</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>couchbase</name>
 	<description>couchbase training project</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

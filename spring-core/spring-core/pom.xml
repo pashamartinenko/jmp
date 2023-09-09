@@ -174,7 +174,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
                 <configuration>
-                    <warName>baremvc</warName>
+                    <warName>mvc</warName>
                 </configuration>
             </plugin>
         </plugins>

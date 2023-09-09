@@ -191,6 +191,10 @@ public class BookingFacadeImpl implements BookingFacade
         }
 
         List<TicketImpl> tickets = xmlTickets.getTickets();
+        tickets.forEach(ticket -> {
+            userService.createUser(ticket.getUser());
+            eventService.createEvent(ticket.getEvent());
+        });
         ticketService.createTickets(tickets);
     }
 }

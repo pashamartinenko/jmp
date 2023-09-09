@@ -52,12 +52,12 @@ public class TicketImpl implements Ticket
     @Getter(onMethod = @__({@XmlTransient}))
     private long userId;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false)
     @Getter(onMethod = @__({@XmlElement}))
     private EventImpl event;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @Getter(onMethod = @__({@XmlElement}))
     private UserImpl user;

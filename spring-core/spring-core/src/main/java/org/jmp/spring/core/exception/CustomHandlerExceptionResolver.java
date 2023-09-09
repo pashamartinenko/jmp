@@ -15,6 +15,8 @@ public class CustomHandlerExceptionResolver extends AbstractHandlerExceptionReso
 {
     private static final String ERROR_VIEW_NAME = "error";
     private static final String ERROR_MODEL_NAME = "error";
+    private static final String ERROR_MESSAGE = "The server got the following error: %s";
+
 
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
@@ -22,9 +24,10 @@ public class CustomHandlerExceptionResolver extends AbstractHandlerExceptionReso
         ModelAndView modelAndView = new ModelAndView(ERROR_VIEW_NAME);
         if (ex instanceof IllegalStateException) {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
-            modelAndView.addObject(ERROR_MODEL_NAME, format("The server got the following error: %s", ex.getMessage()));
+            modelAndView.addObject(ERROR_MODEL_NAME, format(ERROR_MESSAGE, ex.getMessage()));
         } else {
-            modelAndView.addObject(ERROR_MODEL_NAME, ex.getCause());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            modelAndView.addObject(ERROR_MODEL_NAME, format(ERROR_MESSAGE, ex.getMessage()));
         }
         return modelAndView;
     }

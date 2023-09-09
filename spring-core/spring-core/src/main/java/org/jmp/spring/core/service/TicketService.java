@@ -7,6 +7,7 @@ import java.util.List;
 public interface TicketService
 {
     TicketImpl createTicket(TicketImpl ticket);
+    Iterable<TicketImpl> createTickets(List<TicketImpl> tickets);
     List<TicketImpl> findByUserId(Long userId, Pageable pageable);
     List<TicketImpl> findByEventId(Long eventId, Pageable pageable);
     boolean cancelTicket(long ticketId);

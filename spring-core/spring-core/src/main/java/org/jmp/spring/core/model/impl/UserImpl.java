@@ -6,35 +6,44 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.jmp.spring.core.model.User;
-
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(schema = "bookings", name = "user")
-@Getter
-@Setter
 @ToString
 @NoArgsConstructor
+@XmlRootElement
+@Setter
 public class UserImpl implements User
 {
     @Id
     @GeneratedValue
+    @Getter
     private long id;
+
+    @Getter(onMethod = @__({@XmlAttribute}))
     private String name;
+
+    @Getter(onMethod = @__({@XmlAttribute}))
     private String email;
 
     @Embedded
+    @Getter(onMethod = @__({@XmlAttribute(name = "balance")}))
     private UserAccount userAccount;
 
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
+    @Getter(onMethod = @__({@XmlTransient}))
     private List<TicketImpl> tickets;
 
     public UserImpl(long id, String name, String email, UserAccount userAccount)

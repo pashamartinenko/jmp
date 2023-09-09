@@ -11,11 +11,17 @@ import org.jmp.spring.core.model.impl.EventImpl;
 import org.jmp.spring.core.model.impl.TicketImpl;
 import org.jmp.spring.core.model.impl.UserAccount;
 import org.jmp.spring.core.model.impl.UserImpl;
+import org.jmp.spring.core.model.impl.xml.Tickets;
 import org.jmp.spring.core.service.EventService;
 import org.jmp.spring.core.service.TicketService;
 import org.jmp.spring.core.service.UserService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.oxm.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +33,7 @@ public class BookingFacadeImpl implements BookingFacade
     private final UserService userService;
     private final EventService eventService;
     private final TicketService ticketService;
+    private final Unmarshaller unmarshaller;
 
     @Override
     public EventImpl getEventById(long eventId)
@@ -166,7 +173,24 @@ public class BookingFacadeImpl implements BookingFacade
         return userService.refillUserAccount(user, userAccount);
     }
     @Override
-    public void preloadTickets() {
+    @Transactional
+    public void preloadTickets()
+    {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        URL resource = classLoader.getResource("tickets.xml");
+        Tickets xmlTickets;
 
+        try (FileInputStream is = new FileInputStream(resource.getFile()))
+        {
+            xmlTickets = (Tickets) unmarshaller.unmarshal(new StreamSource(is));
+
+        }
+        catch (IOException e)
+        {
+            throw new IllegalStateException(e);
+        }
+
+        List<TicketImpl> tickets = xmlTickets.getTickets();
+        ticketService.createTickets(tickets);
     }
 }

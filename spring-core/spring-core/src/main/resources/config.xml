@@ -33,9 +33,14 @@
         <property name="order" value="1"/>
     </bean>
 
-<!--    <bean id="unmarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-        <property name="packagesToScan" value="org.jmp.spring.core.model.impl"/>
-    </bean>-->
+    <!-- JAXB -->
+    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>org.jmp.spring.core.model.impl.xml.Tickets</value>
+            </list>
+        </property>
+    </bean>
 
     <context:property-placeholder location="classpath:application.properties"/>
     <context:annotation-config/>

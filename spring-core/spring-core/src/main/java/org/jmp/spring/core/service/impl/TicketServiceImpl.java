@@ -19,6 +19,11 @@ public class TicketServiceImpl implements TicketService
         return ticketDao.save(ticket);
     }
 
+    public Iterable<TicketImpl> createTickets(List<TicketImpl> tickets) {
+        log.info("create tickets {}", tickets);
+        return ticketDao.saveAll(tickets);
+    }
+
     public List<TicketImpl> findByUserId(Long userId, Pageable pageable) {
         log.info("get tickets by user id {}", userId);
         return ticketDao.findByUserId(userId, pageable);

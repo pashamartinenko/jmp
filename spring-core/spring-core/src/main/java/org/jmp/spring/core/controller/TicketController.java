@@ -97,12 +97,12 @@ public class TicketController
     }
 
 
-    @DeleteMapping(value = "/id/{ticketId}")
-    public ResponseEntity<String> deleteTicket(@PathVariable Long ticketId) {
-        log.info("DELETE /tickets/id/{}", ticketId);
-        bookingFacade.cancelTicket(ticketId);
-        return ResponseEntity.ok().build();
-    }
+        @DeleteMapping(value = "/id/{ticketId}")
+        public ResponseEntity<String> deleteTicket(@PathVariable Long ticketId) {
+            log.info("DELETE /tickets/id/{}", ticketId);
+            bookingFacade.cancelTicket(ticketId);
+            return ResponseEntity.ok().build();
+        }
 
     @GetMapping(value = "/event/id/{eventId}")
     public ModelAndView getBookedTickets(@PathVariable Long eventId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) {
@@ -112,5 +112,13 @@ public class TicketController
         ModelAndView modelAndView = new ModelAndView(TICKETS_VIEW_NAME);
         modelAndView.addObject(TICKETS_MODEL_NAME, bookedTickets);
         return modelAndView;
+    }
+
+    @GetMapping(value = "/preload")
+    public ResponseEntity<String> preload()
+    {
+        log.info("GET /preload");
+        bookingFacade.preloadTickets();
+        return ResponseEntity.ok().build();
     }
 }

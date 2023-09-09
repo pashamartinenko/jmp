@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,23 +20,28 @@ import java.util.Objects;
 
 @Entity
 @Table(schema = "bookings", name = "event")
-@Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@XmlRootElement(name = "event")
 public class EventImpl implements Event
 {
     @Id
     @GeneratedValue
+    @Getter
     private long id;
+    @Getter(onMethod = @__({@XmlAttribute}))
     private String title;
 
+    @Getter(onMethod = @__({@XmlAttribute}))
     private Date date;
 
+    @Getter(onMethod = @__({@XmlAttribute}))
     private Long price;
 
     @OneToMany(mappedBy = "event")
     @ToString.Exclude
+    @Getter(onMethod = @__({@XmlTransient}))
     private List<TicketImpl> tickets;
 
     public EventImpl(long id, String title, Date date, Long price)

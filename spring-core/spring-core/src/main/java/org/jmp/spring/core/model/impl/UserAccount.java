@@ -1,16 +1,17 @@
 package org.jmp.spring.core.model.impl;
 
 import jakarta.persistence.Embeddable;
+import jakarta.xml.bind.annotation.XmlValue;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Embeddable
-@Getter
 @Setter
 @NoArgsConstructor
 public class UserAccount
 {
+    @Getter(onMethod = @__({@XmlValue}))
     private Long balance;
 
     public UserAccount(Long balance)

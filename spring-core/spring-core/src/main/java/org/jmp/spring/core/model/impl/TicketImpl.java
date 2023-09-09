@@ -1,5 +1,6 @@
 package org.jmp.spring.core.model.impl;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -9,6 +10,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,32 +25,41 @@ import java.util.Objects;
 
 @Entity
 @Table(schema = "bookings", name = "ticket")
-@Getter
 @Setter
 @ToString(exclude = {"event", "user"})
 @NoArgsConstructor
+@XmlRootElement
 public class TicketImpl implements Ticket
 {
 
     @Id
     @GeneratedValue
+    @Getter
     private long id;
 
     @Enumerated(EnumType.STRING)
+    @Getter(onMethod = @__({@XmlAttribute}))
     private Category category;
+
+    @Getter(onMethod = @__({@XmlAttribute}))
     private int place;
 
     @Transient
+    @Getter(onMethod = @__({@XmlTransient}))
     private long eventId;
+
     @Transient
+    @Getter(onMethod = @__({@XmlTransient}))
     private long userId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = false)
+    @Getter(onMethod = @__({@XmlElement}))
     private EventImpl event;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @Getter(onMethod = @__({@XmlElement}))
     private UserImpl user;
 
     public TicketImpl(Category category, int place, EventImpl event, UserImpl user)

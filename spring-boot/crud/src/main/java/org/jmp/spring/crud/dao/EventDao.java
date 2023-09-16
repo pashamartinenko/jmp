@@ -14,6 +14,4 @@ public interface EventDao extends CrudRepository<EventImpl, Long>
     List<EventImpl> findAllByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     List<EventImpl> findAllByDate(Date day, Pageable pageable);
-
-    EventImpl findByIdAndTitleAndDate(Long id, String title, Date date);
 }

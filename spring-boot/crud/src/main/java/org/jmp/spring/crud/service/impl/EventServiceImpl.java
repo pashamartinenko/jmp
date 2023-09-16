@@ -11,7 +11,6 @@ import org.jmp.spring.crud.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
@@ -59,10 +58,4 @@ public class EventServiceImpl implements EventService
         }
         return isFound;
     }
-
-    public EventImpl findByIdAndTitleAndDate(Long id, String title, Date date) {
-        log.info("find event by id={}, title={}, date={}", id, title, date);
-        return eventDao.findByIdAndTitleAndDate(id, title, date);
-    }
-
 }

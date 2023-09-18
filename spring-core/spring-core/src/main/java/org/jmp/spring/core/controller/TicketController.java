@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.TemplateEngine;
@@ -42,9 +43,9 @@ public class TicketController
 
     private final TemplateEngine templateEngine;
 
-
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView bookTicket(@RequestParam Map<String, String> parameters) {
+    public ModelAndView bookTicket(@RequestParam Map<String, String> parameters)
+    {
         log.info("Create ticket using parameters: {}", parameters);
         String userIdString = parameters.get("userId");
         Long userId = userIdString != null ? Long.valueOf(userIdString) : null;
@@ -52,7 +53,7 @@ public class TicketController
         Long eventId = eventIdString != null ? Long.valueOf(eventIdString) : null;
         String placeString = parameters.get("place");
         Integer place = placeString != null ? Integer.valueOf(placeString) : null;
-            String categoryString = parameters.get("category");
+        String categoryString = parameters.get("category");
         Ticket.Category category = categoryString != null ? Ticket.Category.valueOf(categoryString) : null;
 
         TicketImpl createdTicket = bookingFacade.bookTicket(userId, eventId, place, category);
@@ -62,8 +63,8 @@ public class TicketController
         return modelAndView;
     }
 
-    @GetMapping(value = "/user/id/{userId}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<byte[]> getBookedTicketsPdf(@PathVariable Long userId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) throws DocumentException
+    @RequestMapping(value = "/", method = RequestMethod.GET, params = "userId", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> getBookedTicketsPdf(@RequestParam Long userId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) throws DocumentException
     {
         log.info("Get booked tickets in pdf for user with id={}", userId);
         UserImpl user = bookingFacade.getUserById(userId);
@@ -85,8 +86,8 @@ public class TicketController
                 .body(outputStream.toByteArray());
     }
 
-    @GetMapping(value = "/user/id/{userId}", produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getBookedTicketsHtml(@PathVariable Long userId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum)
+    @RequestMapping(value = "/", method = RequestMethod.GET, params = "userId")
+    public ModelAndView getBookedTicketsHtml(@RequestParam Long userId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum)
     {
         log.info("Get booked tickets in html for user with id={}", userId);
         UserImpl user = bookingFacade.getUserById(userId);
@@ -96,16 +97,17 @@ public class TicketController
         return modelAndView;
     }
 
+    @DeleteMapping(value = "/{ticketId}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long ticketId)
+    {
+        log.info("DELETE /tickets/{}", ticketId);
+        bookingFacade.cancelTicket(ticketId);
+        return ResponseEntity.noContent().build();
+    }
 
-        @DeleteMapping(value = "/id/{ticketId}")
-        public ResponseEntity<String> deleteTicket(@PathVariable Long ticketId) {
-            log.info("DELETE /tickets/id/{}", ticketId);
-            bookingFacade.cancelTicket(ticketId);
-            return ResponseEntity.ok().build();
-        }
-
-    @GetMapping(value = "/event/id/{eventId}")
-    public ModelAndView getBookedTickets(@PathVariable Long eventId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) {
+    @RequestMapping(value = "/", method = RequestMethod.GET, params = "eventId")
+    public ModelAndView getBookedTickets(@RequestParam Long eventId, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum)
+    {
         log.info("Get booked tickets for event with id={}", eventId);
         EventImpl event = bookingFacade.getEventById(eventId);
         List<TicketImpl> bookedTickets = bookingFacade.getBookedTickets(event, pageSize, pageNum);

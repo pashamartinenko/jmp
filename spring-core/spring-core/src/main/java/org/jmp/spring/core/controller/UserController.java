@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
@@ -31,27 +32,27 @@ public class UserController
     private static final String USERS_MODEL_NAME = "users";
     private final BookingFacade bookingFacade;
 
-    @GetMapping("/id/{userId}")
+    @GetMapping("/{userId}")
     public ModelAndView getUserById(@PathVariable Long userId) {
-        log.info("GET /users/id/{}", userId);
+        log.info("GET /users/{}", userId);
         ModelAndView modelAndView = new ModelAndView(USERS_VIEW_NAME);
         UserImpl user = bookingFacade.getUserById(userId);
         modelAndView.addObject(USERS_MODEL_NAME, List.of(user));
         return modelAndView;
     }
 
-    @GetMapping("/email/{email}")
-    public ModelAndView getUserByEmail(@PathVariable String email) {
-        log.info("GET /users/email/{}", email);
+    @RequestMapping(value = "/", method = RequestMethod.GET, params = "email")
+    public ModelAndView getUserByEmail(@RequestParam String email) {
+        log.info("GET /users/?email={}", email);
         ModelAndView modelAndView = new ModelAndView(USERS_VIEW_NAME);
         UserImpl user = bookingFacade.getUserByEmail(email);
         modelAndView.addObject(USERS_MODEL_NAME, List.of(user));
         return modelAndView;
     }
 
-    @GetMapping("/name/{name}")
-    public ModelAndView getUsersByName(@PathVariable String name, @RequestParam(defaultValue = "100") int pageSize, @RequestParam(defaultValue = "1") int pageNum) {
-        log.info("GET /users/name/{}?pageSize={}&pageNum={}", name, pageSize, pageNum);
+    @RequestMapping(value = "/", method = RequestMethod.GET, params = "name")
+    public ModelAndView getUsersByName(@RequestParam String name, @RequestParam(defaultValue = "100") int pageSize, @RequestParam(defaultValue = "1") int pageNum) {
+        log.info("GET /users/?name={}&pageSize={}&pageNum={}", name, pageSize, pageNum);
         ModelAndView modelAndView = new ModelAndView(USERS_VIEW_NAME);
         List<UserImpl> users = bookingFacade.getUsersByName(name, pageSize, pageNum);
         modelAndView.addObject(USERS_MODEL_NAME, users);
@@ -73,9 +74,9 @@ public class UserController
         return modelAndView;
     }
 
-    @PatchMapping(value = "/id/{userId}")
+    @PatchMapping(value = "/{userId}")
     public ModelAndView updateUser(@PathVariable Long userId, @RequestBody MultiValueMap<String, String> parameters) {
-        log.info("PATCH /users/id/{}, parameters: {}", userId, parameters);
+        log.info("PATCH /users/{}, parameters: {}", userId, parameters);
         String name = parameters.getFirst("name");
         String email = parameters.getFirst("email");
         String balanceString = parameters.getFirst("balance");
@@ -88,11 +89,11 @@ public class UserController
         return modelAndView;
     }
 
-    @DeleteMapping(value = "/id/{userId}")
-    ResponseEntity<String> deleteUser(@PathVariable Long userId) {
-        log.info("DELETE /users/id/{}", userId);
+    @DeleteMapping(value = "/{userId}")
+    ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        log.info("DELETE /users/{}", userId);
         bookingFacade.deleteUser(userId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
 

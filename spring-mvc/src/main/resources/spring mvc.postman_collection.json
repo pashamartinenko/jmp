@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "bcd4adc7-94f4-4c9a-b84a-a3b211dd2032",
+		"_postman_id": "189c4b12-51d6-4bf8-9d28-de050daadbbc",
 		"name": "spring mvc",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29866698"
 	},
 	"item": [
 		{
@@ -20,7 +21,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/tickets/event/id/3",
+									"raw": "http://localhost:8080/mvc/v1/tickets?userId=3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -29,10 +30,51 @@
 									"path": [
 										"mvc",
 										"v1",
-										"tickets",
-										"event",
-										"id",
-										"3"
+										"tickets"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get tickets for user PDF",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/pdf",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/tickets?userId=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"tickets"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "2"
+										}
 									]
 								}
 							},
@@ -80,7 +122,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/tickets/user/id/1",
+									"raw": "http://localhost:8080/mvc/v1/tickets?eventId=3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -89,45 +131,13 @@
 									"path": [
 										"mvc",
 										"v1",
-										"tickets",
-										"user",
-										"id",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get tickets for user PDF",
-							"protocolProfileBehavior": {
-								"disabledSystemHeaders": {
-									"accept": true
-								}
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/pdf",
-										"type": "default"
-									}
-								],
-								"url": {
-									"raw": "http://localhost:8080/mvc/v1/tickets/user/id/1",
-									"protocol": "http",
-									"host": [
-										"localhost"
+										"tickets"
 									],
-									"port": "8080",
-									"path": [
-										"mvc",
-										"v1",
-										"tickets",
-										"user",
-										"id",
-										"1"
+									"query": [
+										{
+											"key": "eventId",
+											"value": "3"
+										}
 									]
 								}
 							},
@@ -139,7 +149,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/tickets/id/2",
+									"raw": "http://localhost:8080/mvc/v1/tickets/52",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -149,8 +159,7 @@
 										"mvc",
 										"v1",
 										"tickets",
-										"id",
-										"2"
+										"52"
 									]
 								}
 							},
@@ -166,12 +175,12 @@
 									"urlencoded": [
 										{
 											"key": "userId",
-											"value": "1",
+											"value": "302",
 											"type": "default"
 										},
 										{
 											"key": "eventId",
-											"value": "2",
+											"value": "1252",
 											"type": "default"
 										},
 										{
@@ -184,15 +193,10 @@
 											"value": "BAR",
 											"type": "default"
 										}
-									],
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									]
 								},
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/tickets/",
+									"raw": "http://localhost:8080/mvc/v1/tickets",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -201,8 +205,7 @@
 									"path": [
 										"mvc",
 										"v1",
-										"tickets",
-										""
+										"tickets"
 									]
 								}
 							},
@@ -219,7 +222,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/events/id/1",
+									"raw": "http://localhost:8080/mvc/v1/events/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -229,8 +232,61 @@
 										"mvc",
 										"v1",
 										"events",
-										"id",
-										"1"
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events by title",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/events?title=Hunger",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "Hunger"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events by day",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/events?day=2023-08-19 23:00:00",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "day",
+											"value": "2023-08-19 23:00:00"
+										}
 									]
 								}
 							},
@@ -265,15 +321,10 @@
 											"type": "default",
 											"disabled": true
 										}
-									],
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									]
 								},
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/events/",
+									"raw": "http://localhost:8080/mvc/v1/events",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -282,8 +333,7 @@
 									"path": [
 										"mvc",
 										"v1",
-										"events",
-										""
+										"events"
 									]
 								}
 							},
@@ -320,15 +370,10 @@
 											"type": "default",
 											"disabled": true
 										}
-									],
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									]
 								},
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/events/id/1",
+									"raw": "http://localhost:8080/mvc/v1/events/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -338,8 +383,7 @@
 										"mvc",
 										"v1",
 										"events",
-										"id",
-										"1"
+										"3"
 									]
 								}
 							},
@@ -351,7 +395,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/events/id/302",
+									"raw": "http://localhost:8080/mvc/v1/events/103",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -361,8 +405,7 @@
 										"mvc",
 										"v1",
 										"events",
-										"id",
-										"302"
+										"103"
 									]
 								}
 							},
@@ -403,15 +446,10 @@
 											"value": "10000",
 											"type": "default"
 										}
-									],
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									]
 								},
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/users/id/1",
+									"raw": "http://localhost:8080/mvc/v1/users/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -421,7 +459,6 @@
 										"mvc",
 										"v1",
 										"users",
-										"id",
 										"1"
 									]
 								}
@@ -434,7 +471,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/users/id/6",
+									"raw": "http://localhost:8080/mvc/v1/users/52",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -444,8 +481,7 @@
 										"mvc",
 										"v1",
 										"users",
-										"id",
-										"6"
+										"52"
 									]
 								}
 							},
@@ -477,7 +513,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/users/",
+									"raw": "http://localhost:8080/mvc/v1/users",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -486,8 +522,7 @@
 									"path": [
 										"mvc",
 										"v1",
-										"users",
-										""
+										"users"
 									]
 								}
 							},
@@ -499,7 +534,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/mvc/v1/users/id/1",
+									"raw": "http://localhost:8080/mvc/v1/users/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -509,8 +544,61 @@
 										"mvc",
 										"v1",
 										"users",
-										"id",
 										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get users by name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/users?name=Pavel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Pavel"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get user by name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/users?email=@sxkl",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "@sxkl"
+										}
 									]
 								}
 							},

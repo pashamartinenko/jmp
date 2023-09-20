@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event Thymeleaf template</title>
+</head>
+<body>
+<table>
+    <caption>Events</caption>
+    <thead>
+    <tr>
+        <th>Event Id</th>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event: ${events}">
+        <td th:text="${event.id}">Placeholder</td>
+        <td th:text="${event.title}">Placeholder</td>
+        <td th:text="${event.date}">Placeholder</td>
+        <td th:text="${event.price}">Placeholder</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

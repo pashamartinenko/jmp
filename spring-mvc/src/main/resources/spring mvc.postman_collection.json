@@ -1,0 +1,612 @@
+{
+	"info": {
+		"_postman_id": "189c4b12-51d6-4bf8-9d28-de050daadbbc",
+		"name": "spring mvc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29866698"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "tickets",
+					"item": [
+						{
+							"name": "get tickets for user HTML",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/tickets?userId=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"tickets"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get tickets for user PDF",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/pdf",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/tickets?userId=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"tickets"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "preload",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/tickets/preload",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"tickets",
+										"preload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get tickets for event",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/html",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/tickets?eventId=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"tickets"
+									],
+									"query": [
+										{
+											"key": "eventId",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete ticket",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/tickets/52",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"tickets",
+										"52"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create ticket",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "userId",
+											"value": "302",
+											"type": "default"
+										},
+										{
+											"key": "eventId",
+											"value": "1252",
+											"type": "default"
+										},
+										{
+											"key": "place",
+											"value": "91",
+											"type": "default"
+										},
+										{
+											"key": "category",
+											"value": "BAR",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/tickets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"tickets"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "events",
+					"item": [
+						{
+							"name": "get event by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/events/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"events",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events by title",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/events?title=Hunger",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "Hunger"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events by day",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/events?day=2023-08-19 23:00:00",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "day",
+											"value": "2023-08-19 23:00:00"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create event",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Post Event",
+											"type": "default"
+										},
+										{
+											"key": "date",
+											"value": "2023-08-19 19:00:00",
+											"type": "default"
+										},
+										{
+											"key": "price",
+											"value": "2000",
+											"type": "default"
+										},
+										{
+											"key": "title",
+											"value": "dkjslkdj",
+											"type": "default",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update event",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Patch Event",
+											"type": "default",
+											"disabled": true
+										},
+										{
+											"key": "date",
+											"value": "2023-08-19 19:00:00",
+											"type": "default",
+											"disabled": true
+										},
+										{
+											"key": "price",
+											"value": "200",
+											"type": "default"
+										},
+										{
+											"key": "title",
+											"value": "Hunger Games",
+											"type": "default",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/events/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"events",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete event",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/events/103",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"events",
+										"103"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "update user",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "Patch Event",
+											"type": "default",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "@sxkl",
+											"type": "default"
+										},
+										{
+											"key": "name",
+											"value": "pb",
+											"type": "default",
+											"disabled": true
+										},
+										{
+											"key": "balance",
+											"value": "10000",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/users/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/users/52",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"users",
+										"52"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Pavel",
+											"type": "default"
+										},
+										{
+											"key": "balance",
+											"value": "1",
+											"type": "default"
+										},
+										{
+											"key": "email",
+											"value": "abc@gmail.com",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get user by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/users/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get users by name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/users?name=Pavel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Pavel"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get user by name",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/mvc/v1/users?email=@sxkl",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"mvc",
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "@sxkl"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

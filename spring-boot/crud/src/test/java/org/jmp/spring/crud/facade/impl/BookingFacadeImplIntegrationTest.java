@@ -9,6 +9,7 @@ import org.jmp.spring.crud.model.impl.EventImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.time.Month;
 import java.util.Date;
 import java.util.List;
 
+@ActiveProfiles("test")
 @SpringBootTest
 class BookingFacadeImplIntegrationTest
 {

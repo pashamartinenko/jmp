@@ -15,12 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@ActiveProfiles("test")
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class EventControllerIntegrationTest
 {
     @Autowired
@@ -35,7 +37,10 @@ class EventControllerIntegrationTest
     @Autowired
     private ObjectMapper mapper;
 
-    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    /*@MockBean
+    private SecurityConfiguration securityConfiguration;*/
+    @Autowired
+    private SimpleDateFormat formatter;
 
     @AfterEach
     void tearDown() {
@@ -51,7 +56,7 @@ class EventControllerIntegrationTest
         String dateString = formatter.format(expectedEvent.getDate());
 
         // WHEN-THEN
-        mvc.perform(get("/v1/events/id/{id}", expectedEvent.getId()))
+        mvc.perform(get("/v1/events/{id}", expectedEvent.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(expectedEvent.getId().intValue())))
                 .andExpect(jsonPath("$.title", is(expectedEvent.getTitle())))
@@ -73,7 +78,7 @@ class EventControllerIntegrationTest
         String dateString = formatter.format(expectedDate);
 
         // WHEN-THEN
-        mvc.perform(get("/v1/events/title/test"))
+        mvc.perform(get("/v1/events?title=test"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id", is(expectedEvent1.getId().intValue())))
                 .andExpect(jsonPath("$[0].title", is(expectedEvent1.getTitle())))
@@ -98,7 +103,7 @@ class EventControllerIntegrationTest
         String dateString = formatter.format(expectedDate);
 
         // WHEN-THEN
-        mvc.perform(get("/v1/events/day/{day}", dateString))
+        mvc.perform(get("/v1/events?day={day}", dateString))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id", is(expectedEvent1.getId().intValue())))
                 .andExpect(jsonPath("$[0].title", is(expectedEvent1.getTitle())))
@@ -119,7 +124,7 @@ class EventControllerIntegrationTest
         String dateString = formatter.format(expectedEvent.getDate());
 
         // WHEN-THEN
-        mvc.perform(post("/v1/events/")
+        mvc.perform(post("/v1/events")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsBytes(expectedEvent)))
                 .andExpect(status().isCreated())
@@ -140,7 +145,7 @@ class EventControllerIntegrationTest
         String dateString = formatter.format(expectedEvent.getDate());
 
         // WHEN-THEN
-        mvc.perform(put("/v1/events/id/{id}", existingEvent.getId())
+        mvc.perform(put("/v1/events/{id}", existingEvent.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsBytes(expectedEvent)))
                 .andExpect(status().isOk())
@@ -159,8 +164,8 @@ class EventControllerIntegrationTest
         String dateString = formatter.format(expectedEvent.getDate());
 
         // WHEN-THEN
-        mvc.perform(delete("/v1/events/id/{id}", expectedEvent.getId()))
-                .andExpect(status().isOk());
+        mvc.perform(delete("/v1/events/{id}", expectedEvent.getId()))
+                .andExpect(status().isNoContent());
 
         EventImpl actualEvent = eventDao.findById(expectedEvent.getId()).orElse(null);
         assertNull(actualEvent, "Expected null: the event should have been deleted from the persistence");

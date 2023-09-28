@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "d3e09615-d380-4b77-a8c6-260e8bdf3403",
+		"name": "spring boot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29866698"
+	},
+	"item": [
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "events",
+					"item": [
+						{
+							"name": "get event by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJraWQiOiI1ZjE3YTA5ZS1lZmEwLTRhODktODYzMy1jNDgwMGE1OGJhZjMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJvaWRjLWNsaWVudCIsImF1ZCI6Im9pZGMtY2xpZW50IiwibmJmIjoxNjk1ODc5NDkxLCJzY29wZSI6WyJvcGVuaWQiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjk1ODc5NzkxLCJpYXQiOjE2OTU4Nzk0OTF9.m-cF4bqX6Mkv6B1CDQg0v1rNpccSMjaNajYP-MD6kXVNlLhuTw2OJJI6hkn9c7OIvKqd0d9OvkJndwZQpi4MUH6v-nYjEM_JliMk8IuPdvQ4Qc8yBrv279Imiwe6X4LTAbETyONbVYNnwM-fBKGHwIm_yXSfrQEIz7QNmvSTENxqm6Vhdel92k4LqkV_9EmYTh2FsAN26YgDhpYI4-TvVu4H3HwlB8F2RMG-o1m9J-JR1oohibUgLnN5p2ak_MO5NO-guCt7jCgOLadOo1zKTZqjVPfeAaGSuPgZTbM-caZGeILkfa0IGPy2utQwQ6-SRzs5PwmWK8IEeMeHwsi1mA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events by title",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJraWQiOiI1ZjE3YTA5ZS1lZmEwLTRhODktODYzMy1jNDgwMGE1OGJhZjMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJvaWRjLWNsaWVudCIsImF1ZCI6Im9pZGMtY2xpZW50IiwibmJmIjoxNjk1ODc5NDkxLCJzY29wZSI6WyJvcGVuaWQiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjk1ODc5NzkxLCJpYXQiOjE2OTU4Nzk0OTF9.m-cF4bqX6Mkv6B1CDQg0v1rNpccSMjaNajYP-MD6kXVNlLhuTw2OJJI6hkn9c7OIvKqd0d9OvkJndwZQpi4MUH6v-nYjEM_JliMk8IuPdvQ4Qc8yBrv279Imiwe6X4LTAbETyONbVYNnwM-fBKGHwIm_yXSfrQEIz7QNmvSTENxqm6Vhdel92k4LqkV_9EmYTh2FsAN26YgDhpYI4-TvVu4H3HwlB8F2RMG-o1m9J-JR1oohibUgLnN5p2ak_MO5NO-guCt7jCgOLadOo1zKTZqjVPfeAaGSuPgZTbM-caZGeILkfa0IGPy2utQwQ6-SRzs5PwmWK8IEeMeHwsi1mA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/events?title=Post",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "Post"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get events by day",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJraWQiOiI1ZjE3YTA5ZS1lZmEwLTRhODktODYzMy1jNDgwMGE1OGJhZjMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJvaWRjLWNsaWVudCIsImF1ZCI6Im9pZGMtY2xpZW50IiwibmJmIjoxNjk1ODc5NDkxLCJzY29wZSI6WyJvcGVuaWQiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjk1ODc5NzkxLCJpYXQiOjE2OTU4Nzk0OTF9.m-cF4bqX6Mkv6B1CDQg0v1rNpccSMjaNajYP-MD6kXVNlLhuTw2OJJI6hkn9c7OIvKqd0d9OvkJndwZQpi4MUH6v-nYjEM_JliMk8IuPdvQ4Qc8yBrv279Imiwe6X4LTAbETyONbVYNnwM-fBKGHwIm_yXSfrQEIz7QNmvSTENxqm6Vhdel92k4LqkV_9EmYTh2FsAN26YgDhpYI4-TvVu4H3HwlB8F2RMG-o1m9J-JR1oohibUgLnN5p2ak_MO5NO-guCt7jCgOLadOo1zKTZqjVPfeAaGSuPgZTbM-caZGeILkfa0IGPy2utQwQ6-SRzs5PwmWK8IEeMeHwsi1mA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/events?day=2023-08-19 19:00:00",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "day",
+											"value": "2023-08-19 19:00:00"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create event",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJraWQiOiI1ZjE3YTA5ZS1lZmEwLTRhODktODYzMy1jNDgwMGE1OGJhZjMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJvaWRjLWNsaWVudCIsImF1ZCI6Im9pZGMtY2xpZW50IiwibmJmIjoxNjk1ODc5NDkxLCJzY29wZSI6WyJvcGVuaWQiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjk1ODc5NzkxLCJpYXQiOjE2OTU4Nzk0OTF9.m-cF4bqX6Mkv6B1CDQg0v1rNpccSMjaNajYP-MD6kXVNlLhuTw2OJJI6hkn9c7OIvKqd0d9OvkJndwZQpi4MUH6v-nYjEM_JliMk8IuPdvQ4Qc8yBrv279Imiwe6X4LTAbETyONbVYNnwM-fBKGHwIm_yXSfrQEIz7QNmvSTENxqm6Vhdel92k4LqkV_9EmYTh2FsAN26YgDhpYI4-TvVu4H3HwlB8F2RMG-o1m9J-JR1oohibUgLnN5p2ak_MO5NO-guCt7jCgOLadOo1zKTZqjVPfeAaGSuPgZTbM-caZGeILkfa0IGPy2utQwQ6-SRzs5PwmWK8IEeMeHwsi1mA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Post Event\",\r\n    \"date\": \"2023-08-19 19:00:00\",\r\n    \"price\": 2000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/events",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update event",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJraWQiOiI1ZjE3YTA5ZS1lZmEwLTRhODktODYzMy1jNDgwMGE1OGJhZjMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJvaWRjLWNsaWVudCIsImF1ZCI6Im9pZGMtY2xpZW50IiwibmJmIjoxNjk1ODc5NDkxLCJzY29wZSI6WyJvcGVuaWQiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjk1ODc5NzkxLCJpYXQiOjE2OTU4Nzk0OTF9.m-cF4bqX6Mkv6B1CDQg0v1rNpccSMjaNajYP-MD6kXVNlLhuTw2OJJI6hkn9c7OIvKqd0d9OvkJndwZQpi4MUH6v-nYjEM_JliMk8IuPdvQ4Qc8yBrv279Imiwe6X4LTAbETyONbVYNnwM-fBKGHwIm_yXSfrQEIz7QNmvSTENxqm6Vhdel92k4LqkV_9EmYTh2FsAN26YgDhpYI4-TvVu4H3HwlB8F2RMG-o1m9J-JR1oohibUgLnN5p2ak_MO5NO-guCt7jCgOLadOo1zKTZqjVPfeAaGSuPgZTbM-caZGeILkfa0IGPy2utQwQ6-SRzs5PwmWK8IEeMeHwsi1mA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Post Event\",\r\n    \"date\": \"2023-08-19 19:00:00\",\r\n    \"price\": 100\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/events/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"events",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete event",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJraWQiOiI1ZjE3YTA5ZS1lZmEwLTRhODktODYzMy1jNDgwMGE1OGJhZjMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJvaWRjLWNsaWVudCIsImF1ZCI6Im9pZGMtY2xpZW50IiwibmJmIjoxNjk1ODc5NDkxLCJzY29wZSI6WyJvcGVuaWQiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiZXhwIjoxNjk1ODc5NzkxLCJpYXQiOjE2OTU4Nzk0OTF9.m-cF4bqX6Mkv6B1CDQg0v1rNpccSMjaNajYP-MD6kXVNlLhuTw2OJJI6hkn9c7OIvKqd0d9OvkJndwZQpi4MUH6v-nYjEM_JliMk8IuPdvQ4Qc8yBrv279Imiwe6X4LTAbETyONbVYNnwM-fBKGHwIm_yXSfrQEIz7QNmvSTENxqm6Vhdel92k4LqkV_9EmYTh2FsAN26YgDhpYI4-TvVu4H3HwlB8F2RMG-o1m9J-JR1oohibUgLnN5p2ak_MO5NO-guCt7jCgOLadOo1zKTZqjVPfeAaGSuPgZTbM-caZGeILkfa0IGPy2utQwQ6-SRzs5PwmWK8IEeMeHwsi1mA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/events/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"events",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "access token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "secret",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "oidc-client",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/oauth2/token?client_id=oidc-client&client_secret=secret&grant_type=client_credentials&scope=openid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"oauth2",
+								"token"
+							],
+							"query": [
+								{
+									"key": "client_id",
+									"value": "oidc-client"
+								},
+								{
+									"key": "client_secret",
+									"value": "secret"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials"
+								},
+								{
+									"key": "scope",
+									"value": "openid"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

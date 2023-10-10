@@ -1,11 +1,11 @@
-package org.jmp.spring.crud.facade.impl;
+package org.jmp.spring.crud.service.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import jakarta.inject.Inject;
 import org.jmp.spring.crud.dao.EventDao;
-import org.jmp.spring.crud.facade.BookingFacade;
 import org.jmp.spring.crud.model.impl.EventImpl;
+import org.jmp.spring.crud.service.EventService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,13 +20,13 @@ import java.util.List;
 
 @ActiveProfiles("test")
 @SpringBootTest
-class BookingFacadeImplIntegrationTest
+class EventServiceIntegrationTest
 {
     @Inject
     private EventDao eventDao;
 
     @Inject
-    private BookingFacade bookingFacade;
+    private EventService eventService;
 
     @AfterEach
     void tearDown() {
@@ -39,7 +39,7 @@ class BookingFacadeImplIntegrationTest
         EventImpl expectedEvent = eventDao.save(new EventImpl( "Test event", new Date(), 2000L));
 
         // WHEN
-        EventImpl actualEvent = bookingFacade.getEventById(expectedEvent.getId());
+        EventImpl actualEvent = eventService.getEventById(expectedEvent.getId());
 
         // THEN
         assertEquals(expectedEvent, actualEvent, "Event by id doesn't match with expected one");
@@ -53,7 +53,7 @@ class BookingFacadeImplIntegrationTest
         List<EventImpl> expectedEvents = List.of(expectedEvent);
 
         // WHEN
-        List<EventImpl> actualEvents = bookingFacade.getEventsForDay(expectedDate, 10, 1);
+        List<EventImpl> actualEvents = eventService.getEventsForDay(expectedDate, 10, 1);
 
         // THEN
         assertEquals(expectedEvents, actualEvents, "Events for day don't match with expected ones");
@@ -66,7 +66,7 @@ class BookingFacadeImplIntegrationTest
         List<EventImpl> expectedEvents = List.of(expectedEvent);
 
         // WHEN
-        List<EventImpl> actualEvents = bookingFacade.getEventsByTitle("Lore", 10, 1);
+        List<EventImpl> actualEvents = eventService.getEventsByTitle("Lore", 10, 1);
 
         // THEN
         assertEquals(expectedEvents, actualEvents, "Events by title don't match with expected ones");
@@ -78,7 +78,7 @@ class BookingFacadeImplIntegrationTest
         EventImpl expectedEvent = new EventImpl( "vitae, eleifend", new Date(), 100L);
 
         // WHEN
-        EventImpl actualCreatedEvent = bookingFacade.createEvent(expectedEvent);
+        EventImpl actualCreatedEvent = eventService.createEvent(expectedEvent);
 
         // THEN
         EventImpl actualEventById = eventDao.findById(expectedEvent.getId()).orElse(null);
@@ -93,7 +93,7 @@ class BookingFacadeImplIntegrationTest
         EventImpl expectedEvent = new EventImpl(event.getId(), "Updated test event", new Date(),1900L);
 
         // WHEN
-        EventImpl actualEvent = bookingFacade.updateEvent(expectedEvent);
+        EventImpl actualEvent = eventService.updateEvent(expectedEvent);
 
         // THEN
         EventImpl actualEventById = eventDao.findById(event.getId()).orElse(null);
@@ -110,7 +110,7 @@ class BookingFacadeImplIntegrationTest
         EventImpl event = eventDao.save(new EventImpl( "Test event", new Date(), 1200L));
 
         // WHEN
-        boolean isDeleted = bookingFacade.deleteEvent(event.getId());
+        boolean isDeleted = eventService.deleteEvent(event.getId());
 
         // THEN
         boolean isPresent = eventDao.existsById(event.getId());

@@ -1,67 +1,58 @@
 package org.jmp.spring.crud.service;
 
+import static java.lang.String.format;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.jmp.spring.crud.dao.EventDao;
+import org.jmp.spring.crud.model.Event;
 import org.jmp.spring.crud.model.impl.EventImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-public interface EventService {
+@Service
+@Slf4j
+@RequiredArgsConstructor
+public class EventService
+{
 
+    private final EventDao eventDao;
 
-    /**
-     * Gets event by its id.
-     *
-     * @return Event.
-     */
+    public EventImpl getEventById(long eventId) {
+        log.info("get events by id {}", eventId);
+        return eventDao.findById(eventId)
+                .orElseThrow(() -> new RuntimeException(format("Event with id=%d does not exist", eventId)));
+    }
 
-    EventImpl getEventById(long eventId);
+    public List<EventImpl> getEventsByTitle(String title, int pageSize, int pageNum) {
+        log.info("get events by title {}", title);
+        return eventDao.findAllByTitleContainingIgnoreCase(title, PageRequest.of(pageNum - 1, pageSize));
+    }
 
-    /**
-     * Get list of events by matching title. Title is matched using 'contains' approach.
-     * In case nothing was found, empty list is returned.
-     *
-     * @param title    Event title or it's part.
-     * @param pageSize Pagination param. Number of events to return on a page.
-     * @param pageNum  Pagination param. Number of the page to return. Starts from 1.
-     * @return List of events.
-     */
+    public List<EventImpl> getEventsForDay(Date day, int pageSize, int pageNum) {
+        log.info("get events for day {}", day);
+        return eventDao.findAllByDate(day, PageRequest.of(pageNum - 1, pageSize));
+    }
 
-    List<EventImpl> getEventsByTitle(String title, int pageSize, int pageNum);
+    public EventImpl createEvent(EventImpl event) {
+        log.info("create event {}", event);
+        return eventDao.save(event);
+    }
 
-    /**
-     * Get list of events for specified day.
-     * In case nothing was found, empty list is returned.
-     *
-     * @param day      Date object from which day information is extracted.
-     * @param pageSize Pagination param. Number of events to return on a page.
-     * @param pageNum  Pagination param. Number of the page to return. Starts from 1.
-     * @return List of events.
-     */
+    public EventImpl updateEvent(EventImpl event) {
+        Event existingEvent = getEventById(event.getId());
+        log.info("update event {}", existingEvent);
+        return eventDao.save(event);
+    }
 
-    List<EventImpl> getEventsForDay(Date day, int pageSize, int pageNum);
-
-    /**
-     * Creates new event. Event id should be auto-generated.
-     *
-     * @param event Event data.
-     * @return Created Event object.
-     */
-
-    EventImpl createEvent(EventImpl event);
-
-    /**
-     * Updates event using given data.
-     *
-     * @param event Event data for update. Should have id set.
-     * @return Updated Event object.
-     */
-
-    EventImpl updateEvent(EventImpl event);
-
-    /**
-     * Deletes event by its id.
-     * @param eventId Event id.
-     * @return Flag that shows whether event has been deleted.
-     */
-
-    boolean deleteEvent(long eventId);
+    public boolean deleteEvent(long eventId) {
+        log.info("remove event by id {}", eventId);
+        boolean isFound = eventDao.existsById(eventId);
+        if(isFound) {
+            eventDao.deleteById(eventId);
+        }
+        return isFound;
+    }
 }

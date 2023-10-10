@@ -10,29 +10,35 @@ import static org.mockito.Mockito.when;
 
 import org.jmp.spring.crud.dao.EventDao;
 import org.jmp.spring.crud.model.impl.EventImpl;
+import org.jmp.spring.crud.service.EventService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@ExtendWith(MockitoExtension.class)
 class EventServiceImplTest
 {
+    @Mock
+    private EventDao eventDao;
 
-    private static EventDao eventDao = Mockito.mock(EventDao.class);
-
-    private static EventServiceImpl eventService = new EventServiceImpl();
+    @InjectMocks
+    private EventService eventService;
 
     private static EventImpl expectedEvent;
 
     @BeforeAll
     static void setUp() throws ParseException
     {
-        eventService.setEventDao(eventDao);
         String dateString = "01-06-2023 21:00:00";
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         Date testDate = formatter.parse(dateString);

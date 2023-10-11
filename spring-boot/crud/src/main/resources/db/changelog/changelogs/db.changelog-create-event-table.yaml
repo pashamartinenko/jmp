@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: pashamartinenko
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: event_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: price
+                  type: BIGINT
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+            tableName: event

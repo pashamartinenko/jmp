@@ -7,10 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.crud.dao.EventDao;
 import org.jmp.spring.crud.model.Event;
 import org.jmp.spring.crud.model.impl.EventImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import java.util.Date;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -24,16 +21,6 @@ public class EventService
         log.info("get events by id {}", eventId);
         return eventDao.findById(eventId)
                 .orElseThrow(() -> new RuntimeException(format("Event with id=%d does not exist", eventId)));
-    }
-
-    public List<EventImpl> getEventsByTitle(String title, int pageSize, int pageNum) {
-        log.info("get events by title {}", title);
-        return eventDao.findAllByTitleContainingIgnoreCase(title, PageRequest.of(pageNum - 1, pageSize));
-    }
-
-    public List<EventImpl> getEventsForDay(Date day, int pageSize, int pageNum) {
-        log.info("get events for day {}", day);
-        return eventDao.findAllByDate(day, PageRequest.of(pageNum - 1, pageSize));
     }
 
     public EventImpl createEvent(EventImpl event) {

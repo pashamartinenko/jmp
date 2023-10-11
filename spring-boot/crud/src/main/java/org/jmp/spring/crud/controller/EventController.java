@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jmp.spring.crud.model.impl.EventImpl;
 import org.jmp.spring.crud.service.EventService;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,11 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,18 +28,6 @@ public class EventController
     public EventImpl getEventById(@PathVariable Long eventId) {
         log.info("GET events by id={}", eventId);
         return eventService.getEventById(eventId);
-    }
-
-    @RequestMapping(method=RequestMethod.GET, params = "title")
-    public List<EventImpl> getEventsByTitle(@RequestParam String title, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(name = "offset", defaultValue = "1") Integer pageNum) {
-        log.info("GET events by title={}, pageSize={}, pageNum={}", title, pageSize, pageNum);
-        return eventService.getEventsByTitle(title, pageSize, pageNum);
-    }
-
-    @RequestMapping(method=RequestMethod.GET, params = "day")
-    public List<EventImpl> getEventsForDay(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date day, @RequestParam(defaultValue = "100") Integer pageSize, @RequestParam(name = "offset", defaultValue = "1") Integer pageNum) {
-        log.info("GET events by day={}, pageSize={}, pageNum={}", day, pageSize, pageNum);
-        return eventService.getEventsForDay(day, pageSize, pageNum);
     }
 
     @PostMapping

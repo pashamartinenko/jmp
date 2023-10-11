@@ -1,16 +1,13 @@
-package org.jmp.spring.crud.service.impl;
+package org.jmp.spring.crud.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import org.jmp.spring.crud.dao.EventDao;
 import org.jmp.spring.crud.model.impl.EventImpl;
-import org.jmp.spring.crud.service.EventService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,11 +15,9 @@ import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -71,32 +66,6 @@ class EventServiceImplTest
         // THEN
         RuntimeException actualException = assertThrows(RuntimeException.class, executable);
         assertEquals("Event with id=1 does not exist", actualException.getMessage());
-    }
-
-    @Test
-    void getEventsByTitle_EventExists_ReturnEvent() {
-        // GIVEN
-        when(eventDao.findAllByTitleContainingIgnoreCase(eq(expectedEvent.getTitle()), any()))
-                .thenReturn(List.of(expectedEvent));
-
-        // WHEN
-        List<EventImpl> actualEvents = eventService.getEventsByTitle(expectedEvent.getTitle(), 1, 1);
-
-        // THEN
-        assertEquals(List.of(expectedEvent), actualEvents);
-    }
-
-    @Test
-    void getEventsForDay_EventExists_ReturnEvent() {
-        // GIVEN
-        when(eventDao.findAllByDate(eq(expectedEvent.getDate()), any()))
-                .thenReturn(List.of(expectedEvent));
-
-        // WHEN
-        List<EventImpl> actualEvents = eventService.getEventsForDay(expectedEvent.getDate(), 1, 1);
-
-        // THEN
-        assertEquals(List.of(expectedEvent), actualEvents);
     }
 
     @Test
